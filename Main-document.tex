@@ -1,0 +1,1378 @@
+%\documentclass[12pt,draftcls,onecolumn]{IEEEtran}
+\documentclass[journal,final,twocolumn]{IEEEtran}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{color}
+\usepackage{cite}
+\usepackage[font=small,labelsep=period]{caption}
+%\usepackage{caption,subcaption}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage{mdwmath}
+\usepackage{mdwtab}
+\usepackage{eqparbox}
+%\usepackage[tight,footnotesize]{subfigure}
+\usepackage{stfloats}
+\usepackage{slashbox}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proof}{Proof}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+\allowdisplaybreaks
+\hyphenation{op-tical net-works semi-conduc-tor}
+\begin{document}
+\title{$l_2$-$l_\infty$ Filtering for Discrete-Time Switched Fuzzy Systems with Missing Measurements}
+\author{Meng Zhang,~
+         Peng~Shi,~
+         Longhua~Ma,~
+         Zhitao~Liu,~
+         Hongye~Su~
+%       Renquan~Lu,~and~Zheng-Guang~Wu% <-this % stops a space
+\thanks{
+This work is supported by the National Nature Science Foundation of China under grant No.61633019, 61272020 and the Zhejiang Provincial Natural Science Foundation of China under grant No. LZ15F030004 and Ningbo Sc. \& Tech. Plan Project(2014B82015).}
+\thanks{M. Zhang, Z. Liu and H. Su are with State Key
+Laboratory of Industrial Control Technology, Institute of Cyber-Systems and Control, Zhejiang University, 310027, Hangzhou,
+P.R.China.
+(e-mail: mengzhang2009@163.com; ztliu@zju.edu.cn; hysu@iipc.zju.edu.cn)}
+\thanks{P. Shi is with the School of Electrical and Electronic Engineering, University of Adelaide, Adelaide, SA 5005, Australia. (e-mail: peng.shi@adelaide.edu.au)}
+\thanks{L. Ma is with the School of Information Science and Engineering,
+Ningbo Institute of Technology, Zhejiang University,
+No. 1, Qianhu South Road, Ningbo 315100, P. R. China
+(e-mail:lhma@iipc.zju.edu.cn)}
+
+%%\thanks{T. Huang is with the Texas A$\&$M University at Qatar, Doha 23874, Qatar. (e-mail: tingwen.huang@qatar.tamu.edu).}
+%\thanks{R. Lu is with the Guangdong Key Laboratory of
+%IOT Information Processing, School of Automation, Guangdong University
+%of Technology, Guangzhou Guangdong, 510006, PR China (e-mail:
+%rqlu@hdu.edu.cn).}
+}
+\markboth{IEEE}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
+
+\maketitle
+%\vspace{-1.0in}     %µ¥À¸ÒªÆÁ±Î
+ \begin{abstract}
+This paper focuses on the $l_2$-$l_\infty$ filtering problem for a class of discrete-time switched fuzzy systems with missing measurements. The fuzzy plant considered in this paper incorporates characteristics of Takagi-Sugeno (T-S) fuzzy systems and switched systems simultaneously. The phenomenon of missing measurements is described by a
+stochastic variable that satisfies the Bernoulli binary distribution, which characterizes the effect of data loss in information transmitted from the plant to the filter.
+Based on a basis-dependent Lyapunov function, sufficient conditions are derived in terms of linear matrix inequalities, which ensure the stochastic stability as well as a given $l_2$-$l_\infty$ performance for the filtering error system. Finally, two illustrative examples are presented to demonstrate the effectiveness of the proposed method.
+\end{abstract}
+
+\begin{IEEEkeywords}
+ $l_2$-$l_\infty$ filtering, switched systems, T-S fuzzy systems,  missing measurements
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+\section{Introduction}\label{section1}
+Switched systems are a class of hybrid dynamical systems which consist of a set of subsystems and rules that orchestrate the switching among them. In recent years, considerable attention has been paid to the study of switched systems because of their significance
+both in theory and applications (see e.g., \cite{basicswitch,switchDaafouz,switchsun,switchhlin,ding2014stability}
+and the references therein). The main advantage of switched systems is that many practical problems can be described as switched models, such as networked control systems  \cite{hespanha2007survey,qiu2016recent,lu2015fuzzy}, computer controlled systems  and aircraft control systems. A lot of results focused on switched systems have been reported, for instance, switched systems with time delay are studied  in \cite{auSunswitch,stabilityswitch,RNCexswitch},  sampled-data control of switched systems is considered in
+\cite{hklamsampled,liu2015finite}, and
+the authors investigate switched systems with average dwell time in
+\cite{switchlzhang,switchxzhao,lixiang}.
+%%[15,16].
+
+It is noted that most of the results obtained in the existing literature are mainly concentrated on linear systems, however, systems are usually nonlinear in practical engineering, which bring great difficulties to analysis and synthesis of control problems. Fortunately, a fuzzy-model based approach has been introduced as an effective mathematical tool to model nonlinear systems. Utilizing the powerful approximation performance of the Takagi-Sugeno (T-S) fuzzy model, nonlinear systems can usually be represented equivalently as a set of linear subsystems with corresponding membership functions. Plenty of interesting results on T-S fuzzy systems have been obtained, to mention a few, output feedback controller design of T-S fuzzy systems is investigated in \cite{fuzzyiqiu,fuzzyjqiu1}, the study of uncertain nonlinear systems using T-S fuzzy models is presented in \cite{uncertaints,uncertaints1,de2014switched}. Fuzzy systems with infinite-distributed delays are considered in \cite{gwei,wu2012reliable}
+and
+stabilization of fuzzy systems under variable sampling is addressed in\cite{gaochen,samplingxl}.
+
+On another research front line, filtering problem has received a lot of attention from researchers in recent decades. Besides the classical and well-known Kalman filtering \cite{kalman1960new}, $H_\infty$  and $l_2$-$l_\infty$ filtering techniques have been counting among the most popular filtering techniques since their publication.
+Various results have been reported  on $H_\infty$ filtering in references \cite{mao2014exponential,ou2014robust,mathiyalagan2015exponential,zhang2014h,lian2013asynchronous}  and $l_2$-$l_\infty$ filtering in references  \cite{zhang2008model,wu2011delay,zhang2014energy,zhang2014fuzzy}.
+It should be underscored that these filtering techniques are all rested on the basis
+that the information transmission between the plant and the filter are perfect, however, this is not the case in many practical problems, particularly for networked control systems where the signal $y_{fk}$ received by the filter may not be the same as the output $y_k$ of the plant. The phenomenon of missing measurements are caused by many reasons, e.g., a certain failure in the measurement, limited communication capacity of the network media, or intermittent sensor failures. Recently, a great deal of attention has been paid to this topic. Reference \cite{missing} investigates filtering problem for stochastic systems with missing measurements and \cite{szhousensor} extends this result to discrete systems suffered with sensor delays which vary randomly. In \cite{gao2009fuzzy}, filtering for systems with intermittent measurements is presented while \cite{zhang2011filtering} considers quantization and packet dropouts simultaneously. So far in the previously mentioned literature, the $l_2$-$l_\infty$ filtering problem for discrete-time switched fuzzy systems with missing measurements still remains open and has not been solved yet, this motivates us for the present study.
+
+In this paper, we investigate the $l_2$-$l_\infty$ filtering problem for a class of discrete-time switched fuzzy systems with missing measurements. The information transmission between the filter and the plant under consideration is not perfect and the phenomenon of the missing measurements
+is characterized by a stochastic variable that satisfies the Bernoulli binary distribution.  By utilizing a basis-dependent Lyapunov function, sufficient conditions are established to guarantee the stochastic stability as well as a given $l_2$-$l_\infty$ performance for the filtering error system. In additional, to simplify and facilitate the filter design procedures, we introduce some slack matrices to avoid the cross coupling between system matrices and Lyapunov matrices, which significantly reduce difficulties for the subsequent design. The resultant filter parameters are easily obtained by solving some LMIs using the MATLAB LMI toobox. Finally, two illustrative examples are provided to verify the effectiveness of the proposed method.
+%The contributions of this paper can be summarized as follows: 1) Compared with \cite{zhang2014h}, we firstly extend further investigation for a more general class of systems, in which quantization effects and switching phenomena are considered simultaneously by the T-S fuzzy model; 2) the $l_2$-$l_\infty$ filtering via the fuzzy-basis-dependent Lyapunov function.
+
+The remainder of the paper is constructed as follows. Section \ref{sec2} briefly recalls some background material on the fuzzy plant and formulates the problem to be addressed subsequently.  Section \ref{sec3} contains our main results, which are sufficient conditions for stochastic stability with a prescribed $l_2$-$l_\infty$  performance $\gamma$  of the filtering error system and filter design synthesis .  Two illustrative examples are given in Section \ref{sec4} and the paper is concluded in Section \ref{sec5}.
+
+
+{\it Notation}: The notations used throughout this paper are
+standard.  The notation $X>0$ $(X\geq Y)$ implies that $X$ is positive definite (positive semidefinite).
+%The superscript ``$\mathrm{{T}}$'' represents the matrix transposition and $diag\{\cdots\}$ represents a block-diagonal matrix.
+$||\cdot||_2$ denotes the Euclidean norm of a vector
+and its induced norm of a matrix. $l_2[0,+\infty)$ is the space of square-integrable vector functions over $[0,+\infty)$.
+%$|\cdot|$ represents the absolute value of a scalar .
+Also, $E\{x\}$ and $E\{x|y\}$ represent the expectation of $x$ and expectation of $x$ conditional on $y$, respectively.
+%For an arbitrary $B$ and two symmetric matrices $A$ and $C$,
+%\begin{equation}\notag
+%  \begin{bmatrix}
+%    A & B \\
+%    *& C \\
+%  \end{bmatrix}
+%\end{equation}
+%denotes a symmetric matrix, where
+$*$ within a matrix represents the symmetric terms. Finally, unless otherwise stated, all the matrices are assumed to have suitable dimensions for algebraic operations.
+\section{Preliminaries and problem formulation}\label{sec2}
+The filtering problem discussed in this paper is shown in Fig.1. From which we can see intuitively, the physical plant under consideration is modeled by a switched T-S fuzzy system, and the communication link  between
+the plant and the filter may not be reliable, that is, the system measurements may be unavailable (i.e., missing data) sometimes. In what follows, we model the whole problem mathematically.
+\begin{figure}[!htb]
+\centering\includegraphics[scale=0.36]{qqqqq.eps}\\
+\caption{Filtering system with missing measurements}
+\label{fig.1}
+\end{figure}
+\subsection{Switched fuzzy model of nonlinear plant}
+The plant considered in this paper is represented by the following discrete-time switched T-S fuzzy model:
+
+IF $\theta_{1k}$ is $M_{i1}$, $\theta_{2k}$ is $M_{i2}$, $\cdots$, and $\theta_{pk}$ is $M_{ip}$, THEN
+\begin{equation}\label{eq1}
+\left\{\begin{aligned}
+x_{k+1}&=A_{r_{k}i}x_k+B_{r_{k}i}w_k \\
+y_k&=C_{r_{k}i}x_k+D_{r_{k}i}w_k\\
+z_k&=L_{r_{k}i}x_k\\
+i  &\in \{1,2,\cdots,r\}
+       \end{aligned}\right.
+\end{equation}
+where $M_{ij}$ is a fuzzy set, and $\theta_{jk} \in \{\theta_{1k},\theta_{2k},\cdots,\theta_{pk}\}$ is the premise variable and $r$ denotes the number of IF-THEN rules; $x_k \in R^n$ is the state vector; $w_k \in R^m$ is the disturbance input vector that belongs to $l_2[0,\infty)$; $y_k \in R^q$ is the measurement output; $z_k \in R^v$ is the signal to be estimated; $r_{k}$ is a switching variable. For $r_{k}=l (l \in \{1,2,3,\cdots,L\})$, $A_{li}, B_{li}, C_{li}$, $D_{li}$ and $L_{li}$ are known matrices with compatible dimensions.
+
+
+
+In this paper, the stochastic variable $r_{k}$  used to characterize the switching phenomena satisfying:
+\begin{equation}\label{eq2}
+\Pr\{r_{k}=l\}=\pi_l.
+\end{equation}
+Here $r_{k}$ is state independent and $\pi_l$ denotes  ``sojourn probability'' \cite{shanlingfuzzy,tian2015filtering} of the corresponding subsystem, which satisfies
+\begin{equation}
+\sum^{L}_{l=1}\pi_{l}=1.
+\end{equation}
+
+On the other hand, some stochastic variables $\pi_{kl}$ are defined as
+\begin{equation}\notag %\label{eq3}
+\pi_{kl}=\left\{\begin{aligned}
+1,~~&r_k=l\\
+0,~~&r_k\neq l,
+\end{aligned}\right.
+\end{equation}
+and it can be easily verified that
+\begin{equation}\notag%\label{eq4}
+E\{\pi_{kl}\}=\pi_l.
+\end{equation}
+
+It should be underscored that for switched systems studied in this paper, there is just one subsystem is triggered in a single moment, that is
+\begin{equation}\notag
+\begin{aligned}
+\Pr\{r_{k}=l_1,r_{k}=l_2\}=0,~\mbox{if}~l_{1}\neq l_2\\
+\end{aligned}
+\end{equation}
+and
+\begin{equation}\notag
+\begin{aligned}
+&E\{\pi_{kl_1}\pi_{kl_2}\}=\left\{\begin{aligned}
+\pi_{l_1},~~&l_1=l_2\\
+0,~~&l_1\neq l_2\end{aligned}\right.
+\end{aligned}
+\end{equation}
+where $l_{1}, l_2 \in \{1,2,3,\cdots,L\}$.
+
+Next, in order to facilitate filter design procedures, by using a center-average defuzzifier, product-fuzzy inference,
+and singleton fuzzifier, we can obtain the following normalized fuzzy basis functions which are represented as
+\begin{equation}\label{eq7}
+h_{i}(\theta_k)=\frac{\prod_{j=1}^pM_{ij}(\theta_{jk})}{\sum_{i=1}^{r}\prod_{j=1}^pM_{ij}(\theta_{jk})}
+\end{equation}
+where $M_{ij}(\theta_{jk}$) denotes the grade of membership of $\theta_{jk}$ in $M_{ij}$. In what follows, we simplify the argument of $h_{i}(\theta_k)$ as $h_{i}$ for simplicity. Hence, the following holds for all $k$:
+\begin{equation}\label{eq8}
+\left\{\begin{aligned}
+&h_{i}\geq0,~i=\{1,2,...r\}\\
+&\sum_{i=1}^{r} h_{i}=1.
+\end{aligned}\right.
+\end{equation}
+
+
+Now, a more compact presentation of the switched T-S fuzzy system (\ref{eq1}) can be given by:
+\begin{equation}\label{fuzzy}
+\left\{\begin{aligned}
+x_{k+1}&=A_{lh}x_k+B_{lh}w_k \\
+y_k&=C_{lh}x_k+D_{lh}w_k\\
+z_k&=L_{lh}x_k%+F_{li}w_k)
+       \end{aligned}\right.
+\end{equation}
+with
+\begin{equation}\label{canshu}
+\begin{aligned}
+A_{lh}&=\sum_{i=1}^{r}h_{i}A_{li},~~B_{lh}=\sum_{i=1}^{r}h_{i}B_{li}\\
+C_{lh}&=\sum_{i=1}^{r}h_{i}C_{li},~~D_{lh}=\sum_{i=1}^{r}h_{i}D_{li}\\
+L_{lh}&=\sum_{i=1}^{r}h_{i}L_{li}
+\end{aligned}
+\end{equation}
+and $h\triangleq(h_{1},h_{2},\cdot\cdot\cdot,h_{r})\in\rho$,
+where $\rho$ are basis functions satisfying (\ref{eq8}).
+
+%\begin{remark}
+%Generally, there are two methods to obtain fuzzy model, that is, identification \cite{takagi1985fuzzy,yager1993unified} via utilizing input-output data and derivation from given nonlinear systems equations. Derivation applies the idea of ``sector nonlinearity'', ``local approximation'' or a combination of them to get fuzzy models. The chapter 2 of the book \cite{tanaka2004fuzzy} has discussed the derivation approach by concrete examples in detail. Moreover, the membership functions play a vital role in performance of systems, which has been studied in \cite{himavathi2001new}.
+%\end{remark}
+\subsection{Communication Link}
+Inspired by \cite{missing} \cite{gao2009fuzzy}, we assume in this paper that the measurements transferred from the plant to the filter may be unavailable sometimes, more specifically, the transmission of data is not always complete and the phenomenon of data loss is modeled as
+\begin{equation}\label{arf}
+y_{fk}=\alpha(k)y_{k}
+\end{equation}
+where the stochastic variable $\{ \alpha(k) \}$ denotes a Bernoulli-distributed white sequence that %introduced to model the intermittent phenomenon of the information transmitted from the plant to the filter. Moreover, $\{ \alpha(k) \}$
+satisfies
+\begin{equation}\nonumber
+\mbox{Pr}\{ \alpha(k)=1\}=E\{ \alpha(k)\}=\bar{\alpha}
+\end{equation}
+\begin{equation}\nonumber
+\mbox{Pr}\{ \alpha(k)=0\}=1-\bar{\alpha}.
+\end{equation}
+It  is  obvious when $\bar{\alpha}=1$, that is, when $y_{fk}=y_{k}$, the information transmission between the filter and the plant is complete, otherwise, when $0\leq \bar{\alpha}<1$, the  phenomenon of data loss may occur.
+\subsection{Filtering error systems}
+In this paper, our objective is concentrated on the constructing of the following full-order filter:
+\begin{equation}\label{filter}
+\left\{\begin{aligned}
+\hat{x}_{k+1}&=A_{flh}\hat{x}_k+B_{flh}y_{fk} \\
+\hat{z}_k&=L_{flh}\hat{x}_k%+F_{fli}y_k)
+\end{aligned}\right.
+\end{equation}
+where
+\begin{equation}
+\begin{aligned}\notag
+A_{flh}&=\sum_{i=1}^{r}h_{i}A_{fli},~B_{flh}=\sum_{i=1}^{r}h_{i}B_{fli},~
+E_{flh}=\sum_{i=1}^{r}h_{i}L_{fli}.
+\end{aligned}
+\end{equation}
+
+By defining $e_k=z_k-\hat{z}_k$,
+$\xi_k=\begin{bmatrix}x_k^\mathrm{T}&\hat{x}_k^\mathrm{T}\end{bmatrix}^\mathrm{T}$, from (\ref{fuzzy}), (\ref{arf}) and (\ref{filter}),  the following filtering  error system is obtained:
+\begin{equation}\label{error}
+\left\{\begin{aligned}
+\xi_{k+1}&=(A_{1lh}+\tilde{\alpha} A_{2lh})\xi_k+(B_{1lh}+\tilde{\alpha} B_{2lh})w_k\\
+e_k&=\bar{L}_{lh}\xi_k\\
+\end{aligned}\right.
+\end{equation}
+where
+\begin{equation}\notag
+\begin{aligned}
+A_{1lh}&=\begin{bmatrix} A_{lh}&0\\\bar{\alpha}B_{flh}C_{lh}&A_{flh}\end{bmatrix},~
+A_{2lh}=\begin{bmatrix} 0&0\\B_{flh}C_{lh}&0 \end{bmatrix}\\
+B_{1lh}&=\begin{bmatrix} B_{lh}\\ \bar{\alpha}B_{flh}D_{lh}\end{bmatrix},~
+B_{2lh}=\begin{bmatrix} 0\\ B_{flh}D_{lh}\end{bmatrix}\\
+\bar{L}_{lh}&=\begin{bmatrix} L_{lh}&-L_{flh}\end{bmatrix}
+\end{aligned}
+\end{equation}
+and $\tilde{\alpha}(k)=\alpha(k)-\bar{\alpha}$. It can be easily verified that
+\begin{equation}\label{gailv}
+E\{ \tilde{\alpha}(k)\}=0,\ \ \ E\{ \tilde{\alpha}(k)\tilde{\alpha}(k)\}=\mu^{2}
+\end{equation}
+, where $\mu=\sqrt{\bar{\alpha}(1-\bar{\alpha})}$.
+
+It can be found that the filtering error system is a system with stochastic parameters since the stochastic variable $\tilde{\alpha}(k)$ is involved in some of the parametric matrices in system \eqref{error}.
+Hence, it is necessary to introduce the notion of stochastic stability in the mean square sense that will be instrumental in the sequel.
+
+{\it Definition 1:} If for any initial condition when $w_k\equiv0$, the following inequality is satisfied
+\begin{equation}\label{eq17}
+E\left\{\sum\limits_{k=0}^\infty \|\xi_k\|_2^2 ~|~ \xi_0\right\}<\infty,
+\end{equation}
+then the filtering error system (\ref{filter}) is stochastically stable in the mean square.
+%{\it Lemma 1 \cite{zhang2011filtering}}: Given appropriately dimensioned matrices $\Gamma_1$, $\Gamma_2$, and  $\Gamma_3$ with $\Gamma_1=\Gamma^T_1$, then
+%
+%\begin{equation}\label{eq18}
+%\Gamma_1+\Gamma_3\Delta_k\Gamma_2+\Gamma^T_2\Delta^T_k\Gamma^T_3<0
+%\end{equation}
+%holds for all $\Delta_k$ satisfying $\Delta^T_k\Delta_k\leq I$ if and only if for some $\varepsilon>0$
+%\begin{equation}\label{eq19}
+%\Gamma_1+\varepsilon^{-1}\Gamma_3\Gamma^T_3+\varepsilon\Gamma^T_2\Gamma_2<0.
+%\end{equation}
+
+Now,  we can formulate the main problem to be addressed in this paper as follows:
+
+For the switched fuzzy system (\ref{fuzzy}) and a given scalar $\gamma$, design a filter of form (\ref{filter}) to ensure that the filtering error system (\ref{error}) satisfies the following conditions :
+
+1) (Stochastic stability) The filtering error system (\ref{error}) is stochastically stable.
+
+2) ($l_2$-$l_\infty$ performance) Under the case of zero-initial conditions, the estimation error $e_{k}$ satisfies
+\begin{equation}\label{l2}
+\sup_k\sqrt{{E[||{e_k}||_2^2]}} <\gamma\sqrt{{\sum_{k=0}^{\infty}||{\omega_k}||_2^2}}
+\end{equation}
+for all nonzero $w_k \in l_2[0,\infty)$. Then, we can conclude that the filtering error system (\ref{error}) is $l_2$-$l_\infty$ stochastically stable with a guaranteed $l_2$-$l_\infty$  performance $\gamma$.
+
+%\section{$H_\infty$ filtering design}
+%In this section, we will present sufficient conditions for the $H_\infty$  performance about the filtering error system (\ref{eq16}) and determine the filter's matrices in (\ref{eq14}) such that the filtering error system in (\ref{eq16}) is stochastically stable with a guaranteed $H_\infty$  performance $\gamma$.
+%
+%The following theorem proves that  $H_\infty$  performance of the filtering error system can be guaranteed if there exist fuzzy-basis-dependent matrices satisfying some LMIs when we assume that the filter parameters in (\ref{eq14}) are known.
+%\begin{theorem}\label{the1}
+%For a given $\gamma>0$, the filtering error system (\ref{error}) is stochastically stable with the $H_\infty$ performance $\gamma$, if there exist matrices $P_{h}>0$, $P_{h^+}>0$, $Q_{lh}>0$ and a scalar $\varepsilon>0$ for $h\in\rho$, $ h^+\triangleq(h_{1}(\theta_{k+1}),h_{2}(\theta_{k+1}),\cdot\cdot\cdot,h_{r}(\theta_{k+1}))\in\rho$, and $l\in \{1,2,\cdots,L\}$, satisfying:
+%\begin{equation}\label{thh1}
+%\sum^{L}_{l=1}\pi_lQ_{lh}<P_h
+%\end{equation}
+%\begin{equation}\label{eqh21}
+%\begin{aligned}
+%&\begin{bmatrix}
+%-P_{h^+}&0&P_{h^+}\bar{A}_{lh}&P_{h^+}\bar{B}_{2lh}&P_{h^+}\bar{B}_{1lh}&0\\
+%*&-I&\bar{E}_{lh}&0&0&0\\
+%*&*&-Q_{lh}&0&0&\varepsilon\bar{C}^T_{lh}\\
+%*&*&*&-\gamma^2I&0&\varepsilon \bar{D}^T_{lh}\\
+%*&*&*&*&-\varepsilon I&0\\
+%*&*&*&*&*&-\varepsilon I
+%\end{bmatrix}\\&<0
+%\end{aligned}
+%\end{equation}
+%\end{theorem}
+%\begin{proof}
+%Applying the Schur complement to (\ref{eqh21}) obtains
+%\begin{equation}\label{eqh23}
+%\begin{aligned}
+%&\begin{bmatrix}
+%-P_{h^+}&0&P_{h^+}\bar{A}_{lh}&P_{h^+}\bar{B}_{2lh}\\
+%*&-I&\bar{E}_{lh}&0\\
+%*&*&-Q_{lh}&0\\
+%*&*&*&-\gamma^2I\end{bmatrix}
+%+\varepsilon\begin{bmatrix}0\\0\\ \bar{C}^T_{lh}\\ \bar{D}^T_{lh}\end{bmatrix}\begin{bmatrix}0\\0\\\bar{C}^T_{lh}\\ \bar{D}^T_{lh}\end{bmatrix}^T\\&\varepsilon^{-1}\begin{bmatrix}P_{h^+}\bar{B}_{1lh}\\0\\0\\0\end{bmatrix}
+%\begin{bmatrix}P_{h^+}\bar{B}_{1lh}\\0\\0\\0\end{bmatrix}^T<0.
+%\end{aligned}
+%\end{equation}
+%Then due to $\Delta'^T_k\Delta'_k<I$, the following inequality holds from (\ref{eqh23}) by Lemma 1:
+%\begin{equation}\label{eqh24}
+%  \begin{bmatrix}
+%   -P_{h^+}&0&P_{h^+}\kappa_{13}&P_{h^+}\kappa_{14}\\
+%   *&-I&\bar{E}_{lh}&0\\
+%*&*&-Q_{lh}&0\\
+%*&*&*&-\gamma^2I
+%  \end{bmatrix}<0
+%  \end{equation}
+%where
+%\begin{equation}\notag
+%\begin{aligned}
+%\kappa_{13}=\bar{A}_{lh}+\bar{B}_{1lh}\Delta'_k\bar{C}_{lh},~\kappa_{14}=\bar{B}_{2lh}+\bar{B}_{1lh}\Delta'_k\bar{D}_{lh}
+%\end{aligned}
+%\end{equation}
+%By the Schur complement method to (\ref{eqh24}), we have:
+%\begin{equation}\label{eqh25}
+%G_{1l}<
+%Q_{lh}
+%\end{equation}
+%\begin{equation}\label{eqh26}
+%G_{2l}+\begin{bmatrix}\bar{E}^T_{lh}\\0\end{bmatrix}\begin{bmatrix}\bar{E}^T_{lh}\\0\end{bmatrix}^T<
+%\begin{bmatrix}Q_{lh}&0\\0&\gamma^2I\end{bmatrix}
+%\end{equation}
+%where
+%\begin{equation}\notag
+%\begin{aligned}
+%G_{1l}=&\kappa_{13}^TP_{h^+}\kappa_{13}\\
+%G_{2l}=&\begin{bmatrix}\kappa_{13}^T \\ \kappa_{14}^T \end{bmatrix}P_{h^+}
+%\begin{bmatrix}\kappa_{13}& \kappa_{14} \end{bmatrix}.
+%\end{aligned}
+%\end{equation}
+%
+%Because of $\sum^{L}_{l=1}\pi_l=1$, we obtain the following inequalities according to (\ref{thh1})
+%\begin{equation}\label{th2}
+%\sum^{L}_{l=1}\pi_lG_{1l}<\sum^{L}_{l=1}\pi_lQ_{lh}<P_h
+%\end{equation}
+%\begin{equation}\label{th3}
+%\begin{aligned}
+%\sum^{L}_{l=1}\pi_l\bigg{(}G_{2l}+\begin{bmatrix}\bar{E}^T_{lh}\\0\end{bmatrix}\begin{bmatrix}\bar{E}^T_{lh}\\0\end{bmatrix}^T\bigg{)}&<
+%\begin{bmatrix}\sum^{L}_{l=1}\pi_lQ_{lh}&0\\0&\gamma^2I\end{bmatrix}\\&<\begin{bmatrix}P_h&0\\0&\gamma^2I\end{bmatrix}.
+%\end{aligned}
+%\end{equation}
+%And it is easily observed that
+%\begin{equation}\label{thh3}
+%G_{3l}=\sum^{L}_{l=1}\pi_l\bigg{(}G_{2l}+\begin{bmatrix}\bar{E}^T_{lh}\\0\end{bmatrix}\begin{bmatrix}\bar{E}^T_{lh}\\0\end{bmatrix}^T\bigg{)}-\begin{bmatrix}P_h&0\\0&\gamma^2I\end{bmatrix}<0
+%\end{equation}
+%
+%Choose the following Lyapunov function for the filtering error system (\ref{eq16}):
+%\begin{equation}\label{eqh28}
+%V_k=\xi^T_kP_{h}\xi_k.
+%\end{equation}
+%
+%Define $\Delta V_k=E\{V_{k+1}|\xi_k\}-V_k$, where $V_{k+1}=\xi^T_{k+1}P_{h^+}\xi_{k+1}$. Considering
+%$E\{\pi_{kl_1}\pi_{kl_2}\}=\left\{\begin{aligned}
+%\pi_{l_1},~~&l_1=l_2\\
+%0,~~&l_1\neq l_2\end{aligned}\right.
+%$ in Remark 1,
+%when $w_k\equiv0$ along the trajectory of system (\ref{eq16}), we have
+%\begin{equation}\label{eqh29}
+%\begin{aligned}
+%E\{\Delta V_k\}&=\xi^T_k\bigg{(}\sum^L_{l=1}\pi_lG_{1l}-P_{h}\bigg{)}\xi_k
+%<0,
+%\end{aligned}
+%\end{equation}
+%which guarantees the stochastic stability of the filtering error system (\ref{eq16}).
+%
+%Next, to establish the $H_\infty$ performance $\gamma$ for  the filtering error system (\ref{eq16}), we assume zero initial condition and consider the following function:
+%\begin{equation}\label{eqh30}
+%\begin{aligned}
+%J=E\{\Delta V_n\}+e_n^Te_n-\gamma^2w_n^Tw_n
+%\end{aligned}
+%\end{equation}
+%Take mathematical expectation on both sides, we have
+%\begin{align}
+%J&=E\{V_{n+1}\}-E\{V_n\}+E\{e_n^\mathrm{T}e_n\}-\gamma^2w_n^\mathrm{T}w_n\\&=\begin{bmatrix}\xi_n\\w_n\end{bmatrix}^TG_{3l}\begin{bmatrix}\xi_n\\w_n\end{bmatrix}<0
+%\end{align}
+%
+%For $n=0,1,2,...,\infty$ summing up both sides, considering $E\{V_n\}\geq0$ for all $n\geq0$, under zero initial condition, we have
+%\begin{align}
+%E\{\sum_{n=0}^\infty e_n^\mathrm{T}e_n\}-\sum_{n=0}^\infty\gamma^2w_n^\mathrm{T}w_n<0
+%\end{align}
+%
+%Thus, it meets the $H_\infty$ performance of the filtering error system. The proof is completed.
+%\end{proof}
+%
+%Now, it is time for us to design the filter of (\ref{eq14}) based on Theorem 1 and the result is given as follows:
+%\begin{theorem}
+%A filter in the form of (\ref{eq14}) exists such that the filtering error system (\ref{eq16}) is stochastically stable with the $H_\infty$ performance $\gamma$ if there exist matrices \begin{equation}\notag \left[
+%                                                                                                            \begin{array}{cc}
+%                                                                                                              P_{1i} & P_{2i} \\
+%                                                                                                              * & P_{3i}\\
+%                                                                                                            \end{array}
+%                                                                                                          \right]
+%>0,~\left[
+%                                                                                                            \begin{array}{cc}
+%                                                                                                             Q_{1li} & Q_{2li} \\
+%                                                                                                              * & Q_{3li}\\
+%                                                                                                            \end{array}
+%                                                                                                          \right]
+%>0,~\left[
+%                   \begin{array}{cc}
+%                    W_{1l} & W_{2l} \\
+%                     W_{3l} & W_{2l} \\
+%                   \end{array}
+%                 \right],\end{equation}
+% $\hat{A}_{fli}$, $\hat{B}_{fli}$, $\hat{E}_{fli}$, and a scalar $\varepsilon>0$ for any $l\in\{1,2,\cdots,L\}$, $i,j,t\in\{1,2,\cdots,r\}$ satisfying
+%\begin{equation}\label{th5}
+%\sum^{L}_{l=1}\pi_l\begin{bmatrix}Q_{1li}&Q_{2li}\\ *&Q_{3li}\end{bmatrix}<\begin{bmatrix}P_{1i}&P_{2i}\\ *&P_{3i}\end{bmatrix}
+%\end{equation}
+%\begin{equation}\label{eqh39}
+%\begin{aligned}
+%&\Theta_{lijt}=\\&
+%\begin{bmatrix}
+%\theta_{1lt}&\theta_{2lt}&0&\theta_{3lij}&\hat{A}_{fli}&\theta_{4lij}&\hat{B}_{fli}\Delta&0\\
+%*&\theta_{5lt}&0&\theta_{6lij}&\hat{A}_{fli}&\theta_{7lij}&\hat{B}_{fli}\Delta&0\\
+%*&*&-I&E_{li}&-\hat{E}_{fli}&0&0&0\\
+%*&*&*&-Q_{1li}&-Q_{2li}&0&0&\varepsilon C^T_{li}\\
+%*&*&*&*&-Q_{3li}&0&0&0\\
+%*&*&*&*&*&-\gamma^2I&0&\varepsilon D^T_{li}\\
+%*&*&*&*&*&*&-\varepsilon I&0\\
+%*&*&*&*&*&*&*&-\varepsilon I
+%\end{bmatrix}\\&<0
+%\end{aligned}
+%\end{equation}
+%where
+%\begin{equation}\notag
+%\begin{aligned}
+%\theta_{1lt}&=P_{1t}-W_{1l}-W^T_{1l},~
+%\theta_{2lt}=P_{2t}-W_{2l}-W^T_{3l}\\
+%\theta_{3lij}&=W_{1l}A_{li}+\hat{B}_{fli}C_{lj},~
+%\theta_{4lij}=W_{1l}B_{li}+\hat{B}_{fli}D_{lj}\\
+%\theta_{5lt}&=P_{3t}-W_{2l}-W^T_{2l},~
+%\theta_{6lij}=W_{3l}A_{li}+\hat{B}_{fli}C_{lj}\\
+%\theta_{7lij}&=W_{3l}B_{li}+\hat{B}_{fli}D_{lj}.
+%\end{aligned}
+%\end{equation}
+%Furthermore, the parameters of the filter in (\ref{eq14}) can be given by
+%\begin{equation}\label{eqh41}
+%A_{fli}=W^{-1}_{2l}\hat{A}_{fli},~B_{fli}=W^{-1}_{2l}\hat{B}_{fli},~
+%E_{fli}=\hat{E}_{fli}.
+%\end{equation}
+%\end{theorem}
+%\begin{proof}
+%Firstly, suppose that there exist matrices $P_h$, $P_{h^+}$, $Q_{lh}$, $W_{l}$, $\hat{A}_{flh}$, $\hat{B}_{flh}$, $\hat{E}_{flh}$ satisfying (\ref{th5}) and (\ref{eqh39}). We utilize these matrices to define the following functions:
+%\begin{equation}
+%\begin{aligned}
+%P_h&=\begin{bmatrix}P_{1h}&P_{2h}\\
+%*&P_{3h}\end{bmatrix}=\sum^{r}_{i=1}h_{i}\begin{bmatrix}P_{1i}&P_{2i}\\
+%*&P_{3i}\end{bmatrix}\\
+%P_{h^+}&=\begin{bmatrix}P_{1h^+}&P_{2h^+}\\
+%*&P_{3h^+}\end{bmatrix}=\sum^{r}_{t=1}h^+_{t}\begin{bmatrix}P_{1t}&P_{2t}\\
+%*&P_{3t}\end{bmatrix},\\
+%Q_{lh}&=\begin{bmatrix}Q_{1lh}&Q_{2lh}\\ \ast &Q_{3lh}\end{bmatrix}=\sum^{r}_{i=1}h_{i}\begin{bmatrix}Q_{1li}&Q_{2li}\\
+%\ast &Q_{3li}\end{bmatrix}\\W_l&=\begin{bmatrix}W_{1l}&W_{2l}\\W_{3l}&W_{2l}\end{bmatrix}\\ \notag
+%\hat{A}_{flh}&=W_{2l}A_{flh}=\sum^{r}_{i=1}h_{i}W_{2l}A_{fli}=\sum^{r}_{i=1}h_{i}\hat{A}_{fli}\\
+%\hat{B}_{flh}&=W_{2l}B_{flh}=\sum^{r}_{i=1}h_{i}W_{2l}B_{fli}=\sum^{r}_{i=1}h_{i}\hat{B}_{fli}\\
+%\hat{E}_{flh}&=E_{flh}=\sum^{r}_{i=1}h_{i}E_{fli} = \sum^{r}_{i=1}h_{i}\hat{E}_{fli}
+%\end{aligned}
+%\end{equation}
+%%together with (\ref{eq5}) and (\ref{eq14}) imply that
+%%\begin{equation}\label{t6}
+%%\begin{aligned}
+%%\sum^{L}_{l=1}\pi_l\begin{bmatrix}Q_{1lh}&Q_{2lh}\\ *&Q_{3lh}\end{bmatrix}&=\sum^{r}_{i=1}h_{i}\sum^{L}_{l=1}\pi_l\begin{bmatrix}Q_{1li}&Q_{2li}\\ *&Q_{3li}\end{bmatrix}<\sum^{r}_{i=1}h_{i}\begin{bmatrix}P_{1i}&P_{2i}\\ *&P_{3i}\end{bmatrix}
+%%\end{aligned}
+%%\end{equation}
+%thus we obtain %(\ref{th5}) from (\ref{thh1}).
+%\begin{equation}\label{eqhh42}
+%\begin{aligned}
+%&\sum^{r}_{i=1}\sum^{r}_{j=1}\sum^{r}_{t=1}h_{i}h_{j}h^+_{t} \Theta_{lijt}\\=&
+%\begin{bmatrix}
+%\theta_{1}&\theta_{2}&0&\theta_{3}&\hat{A}_{flh}&\theta_{4}&
+%\theta_8&0\\
+%*&\theta_{5}&0&\theta_{6}&\hat{A}_{flh}&
+%\theta_{7}&\theta_8&0\\
+%*&*&-I&E_{lh}&-\hat{E}_{flh}&0&0&0\\
+%*&*&*&-Q_{1lh}&-Q_{2lh}&0&0&\varepsilon C^T_{lh}\\
+%*&*&*&*&-Q_{3lh}&0&0&0\\
+%*&*&*&*&*&-\gamma^2I&0&\varepsilon D^T_{lh}\\
+%*&*&*&*&*&*&-\varepsilon I&0\\
+%*&*&*&*&*&*&*&-\varepsilon I
+%\end{bmatrix}\\=&
+%\begin{bmatrix}
+%\lambda&0&W_l\bar{A}_{lh}&W_{l}\bar{B}_{2lh}&W_{l}\bar{B}_{1lh}&0\\
+%*&-I&\bar{E}_{lh}&0&0&0\\
+%*&*&-Q_{lh}&0&0&\varepsilon\bar{C}^T_{lh}\\
+%*&*&*&-\gamma^2I&0&\varepsilon \bar{D}^T_{lh}\\
+%*&*&*&*&-\varepsilon I&0\\
+%*&*&*&*&*&-\varepsilon I
+%\end{bmatrix}<0
+%\end{aligned}
+%\end{equation}
+%where
+%\begin{equation}\notag
+%\begin{aligned}
+%\theta_{1}&=P_{1h^+}-W_{1l}-W^T_{1l},~
+% \theta_{2}=P_{2h^+}-W_{2l}-W^T_{3l}\\
+%\theta_{3}&=W_{1l}A_{lh}+\hat{B}_{flh}C_{lh},~
+%\theta_{4}=W_{1l}B_{lh}+\hat{B}_{flh}D_{lh}\\
+%\theta_{5}&=P_{3h^+}-W_{2l}-W^T_{2l},~
+%\theta_{6}=W_{3l}A_{lh}+\hat{B}_{flh}C_{lh}\\
+%\theta_{7}&=W_{3l}B_{lh}+\hat{B}_{flh}D_{lh},~\theta_8=\hat{B}_{flh}\Delta\\
+%\lambda&=P_{h^+}-W_l-W_l^T.
+%\end{aligned}
+%\end{equation}
+%
+%Noting that $P_{h^+}>0$, we have
+%\begin{equation}\label{eqh37}
+%P_{h^+}-W_{l}-W^T_{l}>-W_{l}P^{-1}_{h^+}W^T_{l}.
+%\end{equation}
+%Thus it follows from (\ref{eqhh42}) that
+%\begin{equation}\label{eqh38}
+%\begin{aligned}
+%&\begin{bmatrix}
+%-W_{l}P^{-1}_{h^+}W^T_{l}&0&W_{l}\bar{A}_{lh}&W_{l}\bar{B}_{2lh}&W_{l}\bar{B}_{1lh}&0\\
+%*&-I&\bar{E}_{lh}&0&0&0\\
+%*&*&-Q_{lh}&0&0&\varepsilon\bar{C}^T_{lh}\\
+%*&*&*&-\gamma^2I&0&\varepsilon \bar{D}^T_{lh}\\
+%*&*&*&*&-\varepsilon I&0\\
+%*&*&*&*&*&-\varepsilon I
+%\end{bmatrix}\\&<0.
+%\end{aligned}
+%\end{equation}
+%By pre-multiplying diag$\{W^{-1}_{l},I,I,I,I,I\}$ and post-multiplying diag$\{W^{-T}_{l},I,I,I,I,I\}$ to (\ref{eqh38}), we obtain
+%\begin{equation}\label{eqh36}
+%\begin{aligned}
+%&\begin{bmatrix}
+%P^{-1}_{h^+}&0&\bar{A}_{lh}&\bar{B}_{2lh}&\bar{B}_{1lh}&0\\
+%*&-I&\bar{E}_{lh}&0&0&0\\
+%*&*&-Q_{lh}&0&0&\varepsilon\bar{C}^T_{lh}\\
+%*&*&*&-\gamma^2I&0&\varepsilon \bar{D}^T_{lh}\\
+%*&*&*&*&-\varepsilon I&0\\
+%*&*&*&*&*&-\varepsilon I
+%\end{bmatrix}&<0.
+%\end{aligned}
+%\end{equation}
+%By pre-multiplying and post-multiplying diag$\{P^{-1}_{h^+},I,I,I,I,I\}$ to (\ref{eqh21}),
+%we have (\ref{eqh36}).
+%%\begin{align*}
+%%&P_{h^+}-W_{l}-W^T_{l}=\begin{bmatrix} \theta_{1}&\theta_{2}\\          *&\theta_{5}
+%       %   \end{bmatrix},~
+%%W_{l}\bar{B}_{1lh}=
+%% \begin{bmatrix}
+%%\hat{B}_{flh}\Delta\\
+%%\hat{B}_{flh}\Delta
+%%\end{bmatrix},~W_{l}\bar{A}_{lh}=
+%% \begin{bmatrix}
+%%\theta_{3}&\hat{A}_{flh}\\
+%%\theta_{6}&\hat{A}_{flh}
+%%\end{bmatrix}\\&
+%%W_{l}\bar{B}_{2lh}=
+%% \begin{bmatrix}
+%%\theta_{4}\\
+%%\theta_{7}
+%%\end{bmatrix},~
+%%\bar{C}_{lh}=\begin{bmatrix}
+%%C_{lh}&0
+%%\end{bmatrix},~\bar{D}_{lh}=D_{lh}.
+%%\end{align*}
+%%Thus it follows from (\ref{eqh33}) that
+%%\begin{equation}\label{eqh38}
+%%\begin{aligned}
+%%&\begin{bmatrix}
+%%G_3&W_{l}\bar{A}_{lh}&W_{l}\bar{B}_{2lh}&W_{l}\bar{B}_{1lh}&0\\
+%%*&-Q_{lh}&0&0&\varepsilon \bar{C}^T_{lh}\\
+%%*&*&-I&0&\varepsilon \bar{D}^T_{lh}\\
+%%*&*&*&-\varepsilon I&0\\
+%%*&*&*&*&-\varepsilon I
+%%\end{bmatrix}&<0
+%%\end{aligned}
+%%\end{equation}
+%%where $G_3=-W_{l}P^{-1}_{h^+}W^T_{l}$.
+%
+%%By pre-multiplying diag$\{W^{-1}_{l},I,I,I,I\}$ and post-multiplying diag$\{W^{-T}_{l},I,I,I,I\}$ to (\ref{eqh38}), we obtain (\ref{eqh36}).
+%Thus, when (\ref{eqh39}) holds, (\ref{eqh21}) holds. Moreover, (\ref{th5}) is equivalent to (\ref{thh1}).
+%
+%From above analysis, we obtain
+%\begin{equation}\label{eqh45}
+%\hat{A}_{fli}=W_{2l}A_{fli},~\hat{B}_{fli}=W_{2l}B_{fli},~
+%\hat{E}_{fli}=E_{fli}.
+%\end{equation}
+%Thus,
+%\begin{equation}\label{eqh46}
+%A_{fli}=W^{-1}_{2l}\hat{A}_{fli},~B_{fli}=W^{-1}_{2l}\hat{B}_{fli},~
+%E_{fli}=\hat{E}_{fli}.
+%\end{equation}
+%
+%The proof is completed.
+%\end{proof}
+\section{Main results}\label{sec3}
+
+In this section, the  $l_2$-$l_\infty$ filtering analysis and filter design synthesis for the switched fuzzy system \eqref{fuzzy} is concerned. In particular,
+sufficient conditions are derived to ensure the stochastic stability
+with a given $l_2$-$l_\infty$ performance for the
+error system (\ref{error}) and the resultant filter parameters  can be easily achieved by solving a set of LMIs.
+
+\begin{theorem}\label{th1}
+Consider the fuzzy system (\ref{fuzzy}) and assume the filter parameters of the system (\ref{filter}) are known.
+Then for a given $\gamma>0$, the error system (\ref{error}) is said to be stochastically stable with the $l_2$-$l_\infty$ performance $\gamma$, if we can find matrices $P_{h}>0$, $P_{h^+}>0$, $F_{lh}>0$  for any $l\in \{1,2,\cdots,L\}$ and $h$, $ h^+\triangleq(h_{1}(\theta_{k+1}),h_{2}(\theta_{k+1}),\cdot\cdot\cdot,h_{r}(\theta_{k+1}))\in\rho$, satisfying:
+\begin{equation}\label{con1}
+\sum^{L}_{l=1}\pi_lF_{lh}<P_h
+\end{equation}
+\begin{equation}\label{lmida}
+\begin{aligned}
+&\begin{bmatrix}
+-P_{h^+}&0&P_{h^+}A_{1lh}&P_{h^+}B_{1lh}\\
+*&-P_{h^+}&\mu P_{h^+}A_{2lh}&\mu P_{h^+}B_{2lh}\\
+*&*&-F_{lh}&0\\
+*&*&*&-I
+\end{bmatrix}&<0
+\end{aligned}
+\end{equation}
+\begin{equation}\label{lmixiao}
+\begin{bmatrix}
+-P_{h}&-\bar{L}^T_{lh}\\
+*&-\gamma^2I
+\end{bmatrix}\leq0.
+\end{equation}
+\end{theorem}
+\begin{proof}
+For simplicity, the proof is divided into two steps, firstly, we prove the stochastic stability of the error system (\ref{error}). Toward this end, we choose the following  Lyapunov function candidate
+\begin{equation}\label{Lyapunov}
+V_k=\xi^T_kP_{h}\xi_k.
+\end{equation}
+When $w_k\equiv0$, the filter error system (\ref{error}) becomes
+\begin{equation}\label{errorwk0}
+\left\{\begin{aligned}
+\xi_{k+1}&=(A_{1lh}+\tilde{\alpha} A_{2lh})\xi_k\\
+e_k&=\bar{L}_{lh}\xi_k\\
+\end{aligned}\right.
+\end{equation}
+Define
+\begin{equation}\nonumber
+\Delta V_k=E\{V_{k+1}|\xi_k\}-V_k, \ \ \ V_{k+1}=\xi^T_{k+1}P_{h^+}\xi_{k+1}
+\end{equation}
+and we obtain
+\begin{equation}\nonumber
+\begin{aligned}
+\Delta V_k&=E\{V_{k+1}|\xi_k\}-V_k \\
+&=E\{\xi^{T}_k (A^{T}_{1lh}+\tilde{\alpha}(k) A^{T}_{2lh})P_{h^+}(A_{1lh}+\tilde{\alpha}(k) A_{2lh})\xi_k \} \\
+&\ \ \  - \xi^T_kP_{h}\xi_k.
+\end{aligned}
+\end{equation}
+ Considering
+$E\{\pi_{kl_1}\pi_{kl_2}\}=\left\{\begin{aligned}
+\pi_{l_1},~~&l_1=l_2\\
+0,~~&l_1\neq l_2\end{aligned}\right.$
+and recalling (\ref{gailv}), we have
+\begin{equation}\nonumber
+\begin{aligned}
+\Delta V_k &=\xi^{T}_k [\sum^{L}_{l=1}\pi_l(A^{T}_{1lh}P_{h^+}A_{1lh}+ \mu^{2} A^{T}_{2lh}P_{h^+}A_{2lh})]\xi_k \\ &\ \ \ -\xi^{T}_kP_{h}\xi_k.
+\end{aligned}
+\end{equation}
+Applying the Schur complement to (\ref{lmida}) we obtain
+\begin{equation}\label{inequa}
+\begin{aligned}
+\begin{bmatrix}
+A^{T}_{1lh}&\mu A^{T}_{2lh}\\
+B^{T}_{1lh}&\mu B^{T}_{2lh}
+\end{bmatrix}
+\begin{bmatrix}
+P_{h^+}&0\\
+*&P_{h^+}
+\end{bmatrix}
+\begin{bmatrix}
+A_{1lh}&B_{1lh}\\
+\mu A_{2lh}&\mu B_{2lh}
+\end{bmatrix}\\ -
+\begin{bmatrix}
+F_{lh}&0\\
+*&I
+\end{bmatrix} <0
+\end{aligned}
+\end{equation}
+which implies
+\begin{equation}\nonumber
+A^{T}_{1lh}P_{h^+}A_{1lh}+ \mu^{2} A^{T}_{2lh}P_{h^+}A_{2lh}<F_{lh}
+\end{equation}
+and thus
+\begin{equation}\nonumber
+\sum^{L}_{l=1}\pi_l(A^{T}_{1lh}P_{h^+}A_{1lh}+ \mu^{2} A^{T}_{2lh}P_{h^+}A_{2lh})<\sum^{L}_{l=1}\pi_lF_{lh}
+\end{equation}
+which further implies
+\begin{equation}\nonumber
+\begin{aligned}
+E\{\Delta V_k\}<\xi^{T}_k(\sum^{L}_{l=1}\pi_lF_{lh}-P_{h})\xi_k<0.
+\end{aligned}
+\end{equation}
+%\begin{equation}\notag
+%E\{\Delta V_k\}<0.
+%\end{equation}
+by noting (\ref{con1}). Hence stochastic stability of the error system (\ref{error}) is guaranteed.
+%
+%By defining $\Psi(h) \triangleq A^{T}_{1lh}P_{h^+}A_{1lh}+ \mu^{2} A^{T}_{2lh}P_{h^+}A_{2lh}-P_{h}$, we have
+%\begin{equation}\nonumber
+%E\{V_{k+1}|\xi_k\}-V_k < -\lambda_{min}(-\Psi(h))\xi^{T}_k\xi_k.
+%\end{equation}
+%Taking mathematical expectation of both sides of the above inequality from $k=0, 1, 2, ...$, we get
+%\begin{equation}\nonumber
+%E\{V_{k+1}\}-V_0 < -\lambda_{min}(-\Psi(h))E \{|\xi_k|^{2} \}.
+%\end{equation}
+%which further implies
+%\begin{equation}\nonumber
+%E \{|\xi_k|^{2} \} < \lambda^{-1}_{min}(-\Psi(h))(V_0-E\{V_{k+1}\}).
+%\end{equation}
+%Considering $E\{V_{k}\} \geq 0$ for all $k\geq0$, we conclude
+%\begin{equation}\nonumber
+%\begin{aligned}
+%E\left\{\sum\limits_{k=0}^\infty \|\xi_k\|_2^2 ~|~ \xi_0\right\}
+%&\leq \lambda^{-1}_{min}(-\Psi(h))\xi^{T}_0\lambda_{max}(P_{h})\xi_0\\
+%&=\xi_0^{T}W\xi_0..
+%\end{aligned}
+%\end{equation}
+%where $\xi_0$ is the initial condition  and $W\triangleq\lambda^{-1}_{min}(-\Psi(h))\lambda_{max}(P_{h})$. Hence the filtering error system is stochastically stable in the mean square according to Definition 1.
+
+Next, in order to achieve the $l_2$-$l_\infty$ performance of the  error system (\ref{error}),  the following index is introduced:
+\begin{equation}\label{eq30}
+\begin{aligned}
+J&=\sum^{k-1}_{n=0}E\{\Delta V_n-w^T_nw_n\}\\&=\sum^{k-1}_{n=0}E\left\{\begin{bmatrix}\xi_n\\w_n\end{bmatrix}^T\Bigg{(}\sum^L_{l=1}\pi_lM_{l}-\begin{bmatrix}P_{h}&0\\0&I\end{bmatrix}\Bigg{)}
+\begin{bmatrix}\xi_n\\w_n\end{bmatrix}\right\}.
+\end{aligned}
+\end{equation}
+where
+\begin{equation}\nonumber
+M_{l}\triangleq \begin{bmatrix}
+A^{T}_{1lh}&\mu A^{T}_{2lh}\\
+B^{T}_{1lh}&\mu B^{T}_{2lh}
+\end{bmatrix}
+\begin{bmatrix}
+P_{h^+}&0\\
+*&P_{h^+}
+\end{bmatrix}
+\begin{bmatrix}
+A_{1lh}&B_{1lh}\\
+\mu A_{2lh}&\mu B_{2lh}
+\end{bmatrix}.
+\end{equation}
+Then combining (\ref{con1}) with (\ref{inequa}) we have
+\begin{equation}\nonumber
+\sum^L_{l=1}\pi_lM_{l}-\begin{bmatrix}P_{h}&0\\0&I\end{bmatrix}<0
+\end{equation}
+which implies $J<0$ for any nonzero $w_{k} \in l_2[0,\infty)$ under zero-initial conditions, therefore we get
+\begin{equation}\label{eq31}
+E\{\xi^T_kP_{h}\xi_k\}=E\{V_k\}<\sum^{k-1}_{n=0}w^T_nw_n.
+\end{equation}
+On the other hand, according to Schur complement, it is easy to obtain from (\ref{lmixiao}) that
+\begin{equation}
+\bar{L}^T_{lh}\bar{L}_{lh}<\gamma^2P_{h},
+\end{equation}
+from which we know for all $k\geq0$
+\begin{equation}\nonumber
+\begin{aligned}
+E\{e^T_ke_k\}&=E\{\xi^T_k\bar{L}^T_{lh}\bar{L}_{lh}\xi_k\}\\
+&<E\{\xi^T_k\gamma^2P_{h}\xi_k\}\\
+&<\gamma^2\sum^{k-1}_{n=0}w^T_nw_n\\
+&<\gamma^2\sum^{\infty}_{n=0}w^T_nw_n,
+\end{aligned}
+\end{equation}
+which means (\ref{l2}) holds under zero initial condition for any nonzero $w_{k} \in l_2[0,\infty)$, this completes the proof.
+\end{proof}
+
+From the analysis above, we have the following observation. If there is no data loss in the communication channel, that is, signals are transmitted completely between the plant and the filter, then using the same notations as before, the following corollary whose proof is similar with that of Theorem 1 is derived immediately.
+\begin{corollary}
+Given the fuzzy system (\ref{fuzzy}) and assume the filter parameters in (\ref{filter}) are known.
+The error system (\ref{error}) will be stochastically stable with a given  $l_2$-$l_\infty$ performance $\gamma$ when $\bar{\alpha}=1$, if we can find some matrices $P_{h}>0$, $P_{h^+}>0$, $F_{lh}>0$ for any $l\in \{1,2,\cdots,L\}$, $h, h^+ \in\rho$  satisfying (\ref{con1}), (\ref{lmixiao}) and
+\begin{equation}\nonumber
+\begin{aligned}
+&\begin{bmatrix}
+-P_{h^+}&P_{h^+}A_{1lh}&P_{h^+}B_{1lh}\\
+*&-F_{lh}&0\\
+*&*&-I
+\end{bmatrix}&<0
+\end{aligned}
+\end{equation}
+\end{corollary}
+
+It can be found that there are some product terms between systems matrices and Lyapunov matrices $P_{h^+}$ in the LMI (\ref{lmida}), which would bring some difficulties for the filter synthesis in the sequel. To deal with this shortcoming, the following theorem is thus proposed by introducing an extra slack matrix $G_{l}$ to avoid the cross coupling between systems matrices and Lyapunov matrices $P_{h^+}$.
+
+\begin{theorem}
+Consider the error system \eqref{error}, the following two statements are equivalent:
+
+(S1) There exist $P_{h^{+}}>0, F_{lh}$ such that (\ref{lmida})  hold.
+\end{theorem}
+
+(S1) There exist matrices $P_{h^{+}}>0, F_{lh}, G_{l}$ such that the following inequality holds
+\begin{equation}\label{lmida2}
+\begin{aligned}
+&\begin{bmatrix}
+\mathcal{S}&0&G^{T}_{l}A_{1lh}&G^{T}_{l}B_{1lh}\\
+*&\mathcal{S}&\mu G^{T}_{l}A_{2lh}&\mu G^{T}_{l}B_{2lh}\\
+*&*&-F_{lh}&0\\
+*&*&*&-I
+\end{bmatrix}&<0
+\end{aligned}
+\end{equation}
+where $\mathcal{S}:=P_{h^+} - G_{l}- G^{T}_{l}$.
+\begin{proof}
+(S1) $\Rightarrow$ (S2): choosing $G_{l}$ as $G_{l}=P_{h^+}$, we can conclude (\ref{lmida2}) from (\ref{lmida}) immediately.
+
+(S2) $\Rightarrow$ (S1): Note the inequality
+\begin{equation}\nonumber
+[P_{h^+}-G_{l}]^T P^{-1}_{h^+} [P_{h^+}-G_{l}]\geq0.
+\end{equation}
+which is equivalent to
+\begin{equation}\nonumber
+P_{h^+}-G_{l}-W^T_{l} \geq -G_{l}^TP^{-1}_{h^+}G_{l},
+\end{equation}
+this combines with (\ref{lmida2}) implies
+\begin{equation}\nonumber
+\begin{aligned}
+\begin{bmatrix}
+-G_{l}^TP^{-1}_{h^+}G_{l}&0&G^{T}_{l}A_{1lh}&G^{T}_{l}B_{1lh}\\
+*&-G_{l}^TP^{-1}_{h^+}G_{l}&\mu G^{T}_{l}A_{2lh}&\mu G^{T}_{l}B_{2lh}\\
+*&*&-F_{lh}&0\\
+*&*&*&-I
+\end{bmatrix}&<0.
+\end{aligned}
+\end{equation}
+Then  by pre-multiplying diag$\{P_{h^+}G^{-T}_{l}, P_{h^+}G^{-T}_{l}, I, I\}$ and post-multiplying diag$\{G^{-1}_{l}P_{h^+},G^{-1}_{l}P_{h^+},I, I\}$ to the left and right sides of the above inequality respectively, we obtain the inequality (\ref{lmida}). This completes the proof.
+\end{proof}
+
+
+Now, based on the results of Theorem 1 and Theorem 2, we are in a position to design the filter in the form of (\ref{filter}) and the detailed result is given as follows:
+
+\begin{theorem}
+Given the fuzzy system (\ref{eq1}), there exists a suitable filter in the form of (\ref{filter})
+ such that error system (\ref{error}) is stochastically stable with a prescribed $l_2$-$l_\infty$ performance $\gamma$, if we can find matrices \begin{equation}
+\begin{aligned}\label{th3}
+\begin{bmatrix}P_{1i}&P_{2i}\\ *&P_{3i}\end{bmatrix} >0, \ \ \
+%P_{h^+}&=\begin{bmatrix}P_{1h^+}&P_{2h^+}\\
+%*&P_{3h^+}\end{bmatrix}=\sum^{r}_{t=1}h^+_{t}\begin{bmatrix}P_{1t}&P_{2t}\\
+%*&P_{3t}\end{bmatrix},\\
+\begin{bmatrix}F_{1li}&F_{2li}\\\ast &F_{3li}\end{bmatrix}>0
+\end{aligned}
+\end{equation}
+$G_{1l}, G_{2l}, G_{3l}, \hat{A}_{fli}$, $\hat{B}_{fli}$ and $\hat{L}_{fli}$ for
+$i,j,s\in\{1,2,\cdots,r\}$ and any $l\in\{1,2,\cdots,L\}$,  satisfying
+\begin{equation}\label{th31}
+\sum^{L}_{l=1}\pi_l\begin{bmatrix}F_{1li}&F_{2li}\\ *&F_{3li}\end{bmatrix}<\begin{bmatrix}P_{1i}&P_{2i}\\ *&P_{3i}\end{bmatrix}
+\end{equation}
+
+%\begin{equation}
+%\begin{aligned}
+\begin{multline}\label{th32} \Xi_{lijs}= \left[\begin{array}{ccccc}
+\theta_{11}&\theta_{12}&0&0&\theta_{13}\\
+*&\theta_{21}&0&0&\theta_{22}\\
+*&*&\theta_{11}&\theta_{12}&\mu\hat{B}_{fli}C_{lj}\\
+*&*&*&\theta_{21}&\mu\hat{B}_{fli}C_{lj}\\
+*&*&*&*&-F_{1li}\\
+*&*&*&*&*\\
+*&*&*&*&*\\
+\end{array}\right.\\
+\left.\begin{array}{cc}
+\hat{A}_{fli}&\theta_{14}\\
+\hat{A}_{fli}&\theta_{23}\\
+0&\mu\hat{B}_{fli}D_{lj}\\
+0&\mu\hat{B}_{fli}D_{lj}\\
+-F_{2li}&0\\
+-F_{3li}&0\\
+*&-I\\
+\end{array}\right]<0
+\end{multline}
+
+
+\%newcounter{mytempeqncnt}
+%\begin{figure*}[!t]
+%\normalsize
+%\setcounter{mytempeqncnt}{\value{equation}}
+%\setcounter{equation}{5}
+%\begin{equation}
+%\begin{bmatrix}
+%\Theta_{11}&\Theta_{12}&0&\Theta_{14}&\hat{A}_{fci}&\Theta_{16}&W_{1c}M_{ai}&0\\
+%*&\Theta_{22}&0&\Theta_{24}&\hat{A}_{fci}&\Theta_{26}&W_{2c}M_{ai}&0\\
+%*&*&-I&L_{ci}&-\hat{L}_{fci}&0&0&0\\
+%*&*&*&-P_{1aci}&-P_{2aci}&0&0&\varepsilon N^T_{ai}\\
+%*&*&*&*&-P_{3aci}&0&0&0\\
+%*&*&*&*&*&-\gamma^2I&0&\varepsilon N^T_{1ai}\\
+%*&*&*&*&*&*&-\varepsilon I&0\\
+%*&*&*&*&*&*&*&-\varepsilon I
+%\end{bmatrix}
+%<0
+%\end{equation}
+%
+%\hrulefill
+%\vspace*{4pt}
+%\end{figure*}
+
+
+
+%\begin{aligned}
+%\begin{equation}
+%\begin{multline} \left[\begin{array}{cccc}
+%\tilde{\Omega}_{11}P^{-1}QW&Q^T{E_{Ai}}^T
+%&P^{-1}(E_{Bi}K_j)^T&0\\
+%\star&a&0&0\\
+%\star&\star&c&0\\
+%\star&\star&\star&0\\
+%\star&\star&\star&0\\
+%\end{array}\right.\\
+%\left.\begin{array}{cc}
+%P^{-1}{E_{Aj}}^T&P^{-1}(E_{Bj}K_i)^T\\
+%0&0\\
+%0&0\\
+%c&0\\
+%\star&d\\
+%\end{array}\right]<0
+%\end{multline}
+
+\begin{equation}\label{th33}
+\begin{bmatrix}
+-P_{1i}&-P_{2i}&-L^T_{li}\\
+*&-P_{3i}&\hat{L}^T_{fli}\\
+*&*&-\gamma^2I
+\end{bmatrix}\leq0
+\end{equation}
+where
+\begin{equation}\nonumber
+\begin{aligned}
+\theta_{11}&=P_{1s}-G_{1l}-G^T_{1l},~
+\theta_{12}=P_{2s}-G_{2l}-G^T_{3l}\\
+\theta_{13}&=G_{1l}A_{li}+\bar{a}\hat{B}_{fli}C_{lj},~
+\theta_{14}=G_{1l}B_{li}+\bar{a}\hat{B}_{fli}D_{lj}\\
+\theta_{21}&=P_{3s}-G_{2l}-G^{T}_{2l},~
+\theta_{22}=G_{3l}A_{li}+\bar{a}\hat{B}_{fli}C_{lj}\\
+\theta_{23}&=G_{3l}B_{li}+\bar{a}\hat{B}_{fli}D_{lj}.
+\end{aligned}
+\end{equation}
+\end{theorem}
+Moreover, the parameters of the filter in (\ref{filter}) can be given by
+\begin{equation}\label{eq41}
+A_{fli}=G^{-1}_{2l}\hat{A}_{fli},~B_{fli}=G^{-1}_{2l}\hat{B}_{fli},~
+L_{fli}=\hat{L}_{fli}.
+\end{equation}
+\begin{proof}
+Suppose that we can find matrices $P_h$, $P_{h^+}$, $G_{1l}, G_{2l}, G_{3l}, F_{lh}$, $\hat{A}_{flh}$, $\hat{B}_{flh}$, $\hat{L}_{flh}$ satisfying (\ref{th32}) and (\ref{th33}). Utilizing these matrices and $h, h^+ \in\rho$, it is possible for us to define the following matrices:
+\begin{equation}\nonumber
+\begin{aligned}
+P_h&=\sum^{r}_{i=1}h_{i}\begin{bmatrix}P_{1i}&P_{2i}\\
+*&P_{3i}\end{bmatrix},
+P_{h^+}=\sum^{r}_{s=1}h^+_{s}\begin{bmatrix}P_{1s}&P_{2s}\\
+*&P_{3s}\end{bmatrix}\\
+F_{lh}&=\sum^{r}_{i=1}h_{i}\begin{bmatrix}F_{1li}&F_{2li}\\
+\ast &F_{3li}\end{bmatrix},~
+\hat{A}_{flh}=\sum^{r}_{i=1}h_{i}\hat{A}_{fli}\\
+\hat{B}_{flh}&=\sum^{r}_{i=1}h_{i}\hat{B}_{fli},~
+\hat{L}_{flh}=\sum^{r}_{i=1}h_{i}\hat{L}_{fli},
+\end{aligned}
+\end{equation}
+then recalling \eqref{canshu}, we have
+\begin{equation}\nonumber
+\begin{aligned}
+&\sum^{r}_{i=1}\sum^{r}_{j=1}\sum^{r}_{s=1}h_{i}h_{j}h^+_{s} \Xi_{lijs}\\=&
+\begin{bmatrix}
+\Theta_{11}&\Theta_{12}&0&0&\Theta_{13}&\hat{A}_{flh}&\Theta_{14}\\
+*&\Theta_{21}&0&0&\Theta_{22}&\hat{A}_{flh}&\Theta_{23}\\
+*&*&\Theta_{11}&\Theta_{12}&\mu\hat{B}_{flh}C_{lh}&0&\mu\hat{B}_{flh}D_{lh}\\
+*&*&*&\Theta_{21}&\mu\hat{B}_{flh}C_{lh}&0&\mu\hat{B}_{flh}D_{lh}\\
+*&*&*&*&-F_{1lh}&-F_{2lh}&0\\
+*&*&*&*&*&-F_{3lh}&0\\
+*&*&*&*&*&*&-I
+\end{bmatrix}\\=&
+\begin{bmatrix}
+\mathcal{S}&0&G^{T}_{l}A_{1lh}&G^{T}_{l}B_{1lh}\\
+*&\mathcal{S}&\mu G^{T}_{l}A_{2lh}&\mu G^{T}_{l}B_{2lh}\\
+*&*&-F_{lh}&0\\
+*&*&*&-I
+\end{bmatrix}<0
+\end{aligned}
+\end{equation}
+where
+\begin{equation}\nonumber
+\begin{aligned}
+\Theta_{11}&=P_{1h^+}-G_{1l}-G^T_{1l},~
+\Theta_{12}=P_{2h^+}-G_{2l}-G^T_{3l}\\
+\Theta_{13}&=G_{1l}A_{lh}+\bar{a}\hat{B}_{flh}C_{lh},~
+\Theta_{14}=G_{1l}B_{lh}+\bar{a}\hat{B}_{flh}D_{lh}\\
+\Theta_{21}&=P_{3h^+}-G_{2l}-G^{T}_{2l},~
+\Theta_{22}=G_{3l}A_{lh}+\bar{a}\hat{B}_{flh}C_{lh}\\
+\Theta_{23}&=G_{3l}B_{lh}+\bar{a}\hat{B}_{flh}D_{lh}.
+\end{aligned}
+\end{equation}
+and \eqref{lmida2} is clearly verified.
+
+
+Now, it can be seen that \eqref{th32} is equivalent to \eqref{lmida} according to Theorem 2. Moreover, it is obvious that \eqref{th31} is equivalent to  \eqref{con1},  \eqref{th33} is equivalent to \eqref{lmixiao}, respectively. This completes the proof.
+\end{proof}
+
+\begin{corollary}
+Given the fuzzy system (\ref{fuzzy}), it is possible to design a suitable  filter of the form (\ref{filter})
+such that the error system (\ref{error}) is stochastically stable with a given $l_2$-$l_\infty$ performance $\gamma$ when $\bar{\alpha}=1$, if we can find matrices
+$P_h, F_lh, W_{1l}, W_{2l}, W_{3l}, \hat{A}_{fli}$, $\hat{B}_{fli}$ and $\hat{L}_{fli}$ for
+$i,j,s\in\{1,2,\cdots,r\}$ and any $l\in\{1,2,\cdots,L\}$,  satisfying (\ref{th3}), (\ref{th33}) and
+\begin{equation}
+\begin{aligned}
+&\begin{bmatrix}
+\theta_{11}&\theta_{12}&\theta_{13}&\hat{A}_{fli}&\theta_{14}\\
+*&\theta_{21}&\theta_{22}&\hat{A}_{fli}&\theta_{23}\\
+*&*&-F_{1li}&-F_{2li}&0\\
+*&*&*&-F_{3li}&0\\
+*&*&*&*&-I\\
+\end{bmatrix}<0
+\end{aligned}
+\end{equation}
+%\begin{equation}
+%\begin{aligned}
+%&\begin{bmatrix}
+%\Theta_{11}&\Theta_{12}&0&0&\Theta'_{13}&\bar{A}_{fli}\\
+%*&\Theta_{21}&0&0&\Theta'_{22}&\bar{A}_{fli}\\
+%*&*&\Theta_{11}&\Theta_{12}&0&0\\
+%*&*&*&\Theta_{21}&0&0\\
+%*&*&*&*&-F_{1li}&-F_{2li}\\
+%*&*&*&*&*&-F_{3li}
+%\end{bmatrix}<0
+%\end{aligned}
+%\end{equation}
+where
+\begin{equation}\nonumber
+\begin{aligned}
+\theta'_{13}&=G_{1l}A_{li}+\hat{B}_{fli}C_{lj},~
+\theta'_{22}=G_{3l}A_{li}+\hat{B}_{fli}C_{lj}.
+\end{aligned}
+\end{equation}
+\end{corollary}
+%\begin{proof}
+%The proof procedures follow similarly from Theorem 2, and hence the details are omitted here.
+%\end{proof}
+%\begin{remark}
+%Constructing common Lyappunov functions brings much convenience to the stability analysis and synthesis of systems. However, it has great trouble finding such common Lyapunov functions, and sometimes they probably do not exist, which tends to give more conservatism. Here, we employ fuzzy-basis-dependent Lyapunov functions to reduce such effects. Piecewise Lyapunov functions are another good choice.
+%\end{remark}
+\begin{remark}
+From Theorem 3, it should be noticed that the $l_2$-$l_\infty$ filtering synthesis discussed in this paper can be  boiled down to solving LMIs (\ref{th31}), (\ref{th32}) and (\ref{th33}). Moreover, if these LMIs are feasible, the desired $l_2$-$l_\infty$ filtering performance index $\gamma^*$ can be achieved by solving the following:
+\begin{equation}\nonumber
+\min ~~~\sigma~~~\mbox{subject~to}~(\ref{th31}), (\ref{th32}) ~\mbox{and}~ (\ref{th33})~\mbox{with}~\sigma=\gamma^2.
+\end{equation}
+\end{remark}
+\section{Verification Examples}\label{sec4}
+In this section, we provide both a practical example and a numerical example to show the effectiveness of the proposed filter design approaches.
+
+\subsection{Example 1}
+Consider a  double-inverted pendulum connected by a spring \cite{hzhangpendulum,shaopendulum}. The dynamics of the pendulum system are described as
+\begin{equation}\nonumber
+\left\{\begin{aligned}
+\dot{x}_{i1}&=x_{i2} \\
+\dot{x}_{i2}&=\frac{1}{100J_i}u_{i}-\frac{kr^{2}}{4J_i}x_{i1} + [\frac{m_{i}gr}{J_i}
+-\frac{kr^{2}}{4J_i}x_{i2}]sin(x_{i1}) \\
+ &\ \ \ + \frac{1}{J_i}x_{i2}+ \sum\limits_{k=1, k\neq i}^2\frac{3kr^{2}}{4J_k}x_{i1}\\
+       \end{aligned}\right.
+\end{equation}
+where $x_{i1}$ represents the angle of the pendulum from the vertical, $x_{i2}$ represents the corresponding angular velocity and $i= 1, 2$. As in \cite{shaopendulum}, $J_1=2$ kg and $J_2=2.5$ kg are moments of inertia; $m_1=2$ kg and $m_2=2.5$ kg are masses of two pendulums; $k=8$ N$\cdot$ m/rad is the constant of connecting torsional spring; $r=1$ denotes the length of the pendulum and  $g=9.8$ m/s$^{2}$ is the gravity constant.
+
+Given $u_{1}=-18x_{11}-16x_{12}$ and $u_{2}=-20x_{21}-14x_{22}$, it can be checked immediately that the system is stable. Linearizing the physical system around $x_{i1}=(0, 0)$, $x_{i1}=(\pm 80^{\circ}, 0)$, $x_{i1}=(\pm 88^{\circ}, 0)$, then discretizing it with sampling period $T=0.01$
+s, finally, the following T-S fuzzy system is obtained by ignoring interconnected matrices:
+
+
+
+
+Plant rule ${i}$: IF $ | x_{1}(k)|$ is $M^{i}$, THEN
+\begin{equation}\nonumber
+\left\{\begin{aligned}
+x_{k+1}&=A_{r_{k}i}x_k+B_{r_{k}i}w_k \\
+y_k&=C_{r_{k}i}x_k+D_{r_{k}i}w_k\\
+z_k&=L_{r_{k}i}x_k, r_{k}=\{1,2\}, i  = \{1,2,3\}
+       \end{aligned}\right.
+\end{equation}
+where
+\begin{figure}[!htb]
+\centering\includegraphics[scale=0.5]{mf.eps}\\
+\caption{Membership functions}
+\label{fig.2}
+\end{figure}
+%Consider the nonlinear pendulum system which has been verified in \cite{chenm2009} and \cite{qiuj2009}, \cite{zhang2011filtering} that the formulated T-S fuzzy model
+%approximates the original nonlinear model precisely,
+%\begin{equation}\label{fuzzy}
+%\left\{\begin{aligned}
+%\dot{x}_{1}(t)&={x}_{2}(t) \\
+%\dot{x}_{2}(t)&=-\frac{g sin(x_{1}(t))+(2b/lm)x_{2}(t)}{4l/3-aml cos^{2}(x_{1}(t))}\\
+%& \ \ \ + \frac{(aml/2)x^{2}_{2}(t) sin(2x_{1}(t)) } {4l/3-aml cos^{2}(x_{1}(t))} + 10w(t).
+%\end{aligned}\right.
+%\end{equation}
+%where $x_{1}$ denotes the angle of the pendulum from the vertical, $x_{2}$ is the angle velocity
+\begin{equation}\notag
+\begin{aligned}
+A_{11}&=\begin{bmatrix} 1&0.0120\\-1.3200&-0.1540\end{bmatrix},
+A_{12}=\begin{bmatrix} 1&0.0120\\-1.1818&-0.1658\end{bmatrix}\\
+A_{13}&=\begin{bmatrix} 1&0.0120\\-1.3760&-0.0352\end{bmatrix},
+B_{11}=B_{12}=B_{13}=\begin{bmatrix} 0\\ 0.5\end{bmatrix}\\
+C_{11}&=C_{12}=C_{13}=\begin{bmatrix} 1& 0\end{bmatrix},~ ~
+D_{11}=D_{12}=D_{13}=1\\
+L_{11}&=L_{12}=L_{13}=\begin{bmatrix} 0& 1\end{bmatrix}.
+\end{aligned}
+\end{equation}
+for the first subsystem and
+\begin{equation}\notag
+\begin{aligned}
+A_{21}&=\begin{bmatrix} 1&0.0120\\-1.3760&-0.0352\end{bmatrix},
+A_{22}=\begin{bmatrix} 1&0.0120\\-1.2378&-0.0447\end{bmatrix}\\
+A_{23}&=\begin{bmatrix} 1&0.0120\\-1.2485&-0.0448\end{bmatrix},
+B_{21}=B_{22}=B_{23}=\begin{bmatrix} 0\\ 0.4\end{bmatrix}\\
+C_{21}&=C_{22}=C_{23}=\begin{bmatrix} 1& 0\end{bmatrix},~ ~
+D_{21}=D_{22}=D_{23}=1\\
+L_{21}&=L_{22}=L_{23}=\begin{bmatrix} 0& 1\end{bmatrix}.
+\end{aligned}
+\end{equation}
+for the second subsystem and membership functions are shown in Fig.2.
+
+Choosing switching probabilities as $\pi_1=0.3, \pi_2=0.7$ (which is shown in Fig.3) and the expectation of the Bernoulli sequence is assumed to be $\bar{\alpha}=0.8$. Then the following filter parameters are obtained by solving LMIs in Theorem 3:
+
+Filter 1:
+\begin{equation}\notag
+\begin{aligned}
+A_{f11}&=\begin{bmatrix} 1.0009&0.0120\\-1.0807&-0.1509\end{bmatrix},
+A_{f12}=\begin{bmatrix} 1.0003&0.0120\\-0.9397&-0.1628\end{bmatrix}\\
+A_{f13}&=\begin{bmatrix} 1.0011&0.0120\\-1.1484&-0.0318\end{bmatrix},
+B_{f11}=\begin{bmatrix} 0.0002\\-0.4865\end{bmatrix}\\
+B_{f12}&=\begin{bmatrix} -0.0001\\-0.4862\end{bmatrix},~ ~
+B_{f13}=\begin{bmatrix} 0.0002\\-0.4829\end{bmatrix}\\
+L_{f11}&=\begin{bmatrix} 0.0238 \ \  -0.9991\end{bmatrix},~ ~
+L_{f12}=\begin{bmatrix} 0.0260 \ \  -0.9989\end{bmatrix}\\
+L_{f13}&=\begin{bmatrix} 0.0201 \ \  -0.9991\end{bmatrix}.
+\end{aligned}
+\end{equation}
+
+Filter 2:
+\begin{equation}\notag
+\begin{aligned}
+A_{f21}&=\begin{bmatrix} 1.0010&0.0120\\-1.3991&-0.0337\end{bmatrix},
+A_{f22}=\begin{bmatrix} 1.0007&0.0120\\-1.2583&-0.0431\end{bmatrix}\\
+A_{f23}&=\begin{bmatrix} 1.0010&0.0120\\-1.2684&-0.0432\end{bmatrix},
+B_{f21}=\begin{bmatrix} 0.0007\\-0.2530\end{bmatrix}\\
+B_{f22}&=\begin{bmatrix} 0.0005\\-0.2515\end{bmatrix},~ ~
+B_{f23}=\begin{bmatrix} 0.0005\\-0.2499\end{bmatrix}\\
+L_{f21}&=\begin{bmatrix} 0.0238 \ \  -0.9991\end{bmatrix},~ ~
+L_{f22}=\begin{bmatrix} 0.0260 \ \  -0.9989\end{bmatrix}\\
+L_{f23}&=\begin{bmatrix} 0.0201 \ \  -0.9991\end{bmatrix}
+\end{aligned}
+\end{equation}
+with the corresponding  $l_2$-$l_\infty$ performance $\gamma^{*}=0.2254$.
+
+\begin{figure}[!htb]
+\centering\includegraphics[scale=0.5]{suijiqiehuan1.eps}\\
+\caption{The switching signal}
+\label{fig.2}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering\includegraphics[scale=0.5]{wk0wucha1.eps}\\
+\caption{Filtering errors under different initial conditions with $w_k=0$}
+\label{fig.2}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering\includegraphics[scale=0.5]{lianggexinhao1.eps}\\
+\caption{Responses of signals}
+\label{fig.2}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering\includegraphics[scale=0.5]{gujiwucha1.eps}\\
+\caption{The filtering error}
+\label{fig.2}
+\end{figure}
+To show the stochastic stability of the filter, we choose two different initial conditions $\xi_1(0)=[0.2 \ \  -0.2 \ \  0\ \   0]^{T}$, $\xi_2(0)=[0.5 \ \  0.5 \ \  0\ \   0]^{T}$ and  Fig.4 shows the corresponding filtering errors converge to zero when $w_k=0$. Moreover, the external disturbance $w_k$ is given as
+\begin{equation}\notag
+w(k)=\left\{\begin{aligned}
+&0.5\mbox{rand}(1),&1\leq k\leq50\\
+-&0.5\mbox{rand}(1), \ &\ \ 51< k\leq100\\
+& \ \ 0,&\mbox{elsewhere}
+\end{aligned}\right.
+\end{equation}
+
+Simulation results of the estimation signal and the filtering error with zero-initial conditions are depicted in Fig.5 and Fig.6, respectively, which show the good performance of the designed filter.
+
+Next, to show the influence of the stochastic variable $\alpha(k)$ on the $l_2$-$l_\infty$ optimal performance $\gamma^{*}$ and the advantage of the basis-dependent Lyapunov function (BDLF) based method over the common Lyapunov function (CLF) based method, the follow-up numerical example is presented.
+\subsection{Example 2}
+Consider a numerical example in the form of \eqref{fuzzy} with the following models:
+
+Mode 1:
+\begin{equation}\notag
+\begin{aligned}
+A_{11}&=\begin{bmatrix} 0.60&0.41\\-0.11&0.43\end{bmatrix},~~
+A_{12}=\begin{bmatrix} 0.80&0.08\\-0.19&0.61\end{bmatrix}\\
+A_{13}&=\begin{bmatrix} 0.88&0.09\\-0.17&0.69\end{bmatrix},~~
+B_{11}=\begin{bmatrix} 0.11\\ 0.19\end{bmatrix}\\
+B_{12}&=\begin{bmatrix} 0.21\\ 0.29\end{bmatrix},~ ~
+B_{13}=\begin{bmatrix} 0.27\\ 0.29\end{bmatrix}\\
+C_{11}&=C_{12}=C_{13}=\begin{bmatrix} 1& 0\end{bmatrix},~ ~
+D_{11}=D_{12}=D_{13}=1\\
+L_{11}&=L_{12}=L_{13}=\begin{bmatrix} 1& 0\end{bmatrix}.
+\end{aligned}
+\end{equation}
+
+
+Mode 2:
+\begin{equation}\notag
+\begin{aligned}
+A_{21}&=\begin{bmatrix} 0.60&0.51\\-0.18&0.42\end{bmatrix},~~
+A_{22}=\begin{bmatrix} 0.91&0.09\\-0.13&0.70\end{bmatrix}\\
+A_{23}&=\begin{bmatrix} 0.95&0.08\\-0.13&0.69\end{bmatrix},~~
+B_{21}=\begin{bmatrix} 0.30\\ 0.20\end{bmatrix}\\
+B_{22}&=\begin{bmatrix} 0.10\\ 0.20\end{bmatrix},~ ~
+B_{23}=\begin{bmatrix} 0.21\\ 0.24\end{bmatrix}\\
+C_{21}&=C_{22}=C_{23}=\begin{bmatrix} 1& 0\end{bmatrix},~ ~
+D_{21}=D_{22}=D_{23}=1\\
+L_{21}&=L_{22}=L_{23}=\begin{bmatrix} 1& 0\end{bmatrix}.
+\end{aligned}
+\end{equation}
+The fuzzy weighting functions are given as
+\begin{equation}\notag
+h_1=\left\{\begin{aligned}
+&\frac{x_{1k}+4}{4}, \ \ \ \ -4 < x_{1k}\leq0\\
+&\frac{-x_{1k}+4}{4}, \ \ \ \ 0< x_{1k}<4\\
+&\ \ \ 0, \ \ \ \ \ \ \ \ \ \mbox{elsewhere}\\
+       \end{aligned}\right.
+\end{equation}
+\begin{equation}\notag
+h_2=\frac{1}{2}h_1, \ \ h_3=1-h_1-h_2.
+\end{equation}
+
+By choosing switching probabilities as $\pi_1=0.2, \pi_2=0.8$ (which is shown in Fig.7) and the expectation of the Bernoulli sequence is assumed to be $\bar{\alpha}=0.9$. Then the following filter parameters are achieved by solving LMIs in Theorem 3:
+
+Filter 1:
+\begin{equation}\notag
+\begin{aligned}
+A_{f11}&=\begin{bmatrix} 0.6482&0.4417\\-0.1687&0.4746\end{bmatrix},
+A_{f12}=\begin{bmatrix} 0.6472&0.3773\\-0.2499&0.6504\end{bmatrix}\\
+A_{f13}&=\begin{bmatrix} 0.6720&0.2947\\-0.2723&0.5539\end{bmatrix},
+B_{f11}=\begin{bmatrix} -0.0670\\-0.0308\end{bmatrix}\\
+B_{f12}&=\begin{bmatrix} -0.1704\\-0.1168\end{bmatrix},~ ~
+B_{f13}=\begin{bmatrix} -0.1878\\-0.1785\end{bmatrix}\\
+L_{f11}&=\begin{bmatrix} -0.9714 \ \  0.0213\end{bmatrix},~ ~
+L_{f12}=\begin{bmatrix} -0.9716 \ \  0.0218\end{bmatrix}\\
+L_{f13}&=\begin{bmatrix} -0.9714  \ \  0.0212\end{bmatrix}.
+\end{aligned}
+\end{equation}
+
+Filter 2:
+\begin{equation}\notag
+\begin{aligned}
+A_{f21}&=\begin{bmatrix} 0.3900&0.5310\\-0.2125&0.4262\end{bmatrix},
+A_{f22}=\begin{bmatrix} 0.6567&0.2189\\-0.2157&0.7310\end{bmatrix}\\
+A_{f23}&=\begin{bmatrix} 0.6075,&0.2867\\-0.3073&0.7304\end{bmatrix},
+B_{f21}=\begin{bmatrix} -0.2793\\-0.0709\end{bmatrix}\\
+B_{f22}&=\begin{bmatrix} -0.2255\\-0.1538\end{bmatrix},~ ~
+B_{f23}=\begin{bmatrix} -0.1574\\-0.2071\end{bmatrix}\\
+L_{f21}&=\begin{bmatrix} -0.9714 \ \  0.0213\end{bmatrix},~ ~
+L_{f22}=\begin{bmatrix} -0.9716 \ \ 0.0218\end{bmatrix}\\
+L_{f23}&=\begin{bmatrix} -0.9714 \ \ 0.0212\end{bmatrix}
+\end{aligned}
+\end{equation}
+with the corresponding  $l_2$-$l_\infty$ performance $\gamma^{*}=0.1575$.
+
+\begin{figure}[!htb]
+\centering\includegraphics[scale=0.5]{suijiqiehuan.eps}\\
+\caption{The switching signal}
+\label{fig.2}
+\end{figure}
+
+%\begin{figure}[!htb]
+%\centering\includegraphics[scale=0.5]{wk0wucha.eps}\\
+%\caption{Filtering errors under different initial conditions with $w_k=0$}
+%\label{fig.2}
+%\end{figure}
+
+\begin{figure}[!htb]
+\centering\includegraphics[scale=0.5]{lianggexinhao.eps}\\
+\caption{Responses of signals}
+\label{fig.2}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering\includegraphics[scale=0.5]{gujiwucha.eps}\\
+\caption{The filtering error}
+\label{fig.2}
+\end{figure}
+%To show the stochastic stability of the filter, we choose two different initial conditions $\xi_1(0)=[0.2 \ \  -0.2 \ \  0\ \   0]^{T}$, $\xi_1(0)=[0.5 \ \  0.5 \ \  0\ \   0]^{T}$ and  Fig.3 shows the corresponding filtering errors converge to zero. Moreover,
+
+The external disturbance $w_k$ is assumed to be
+\begin{equation}\notag
+w_k=3\mbox{rand}(1)/(1+0.1k)
+\end{equation}
+and response curves of the estimation signal and the filtering error with zero-initial conditions are depicted in Fig.8 and Fig.9, respectively.
+%, respectively, which show the good performance of the designed filter.
+
+It is noted that the optimal $l_2$-$l_\infty$ performance based on BDLF can be calculated directly from Remark 1 and the calculation of the corresponding optimal performance based on CLF follows similarly by setting $P_{h}$ and $P_{h+}$ as constants. Moreover, by regulating the value of $\bar{\alpha}$, we can obtain the corresponding optimal $l_2$-$l_\infty$  performance $\gamma^{*}$  based on  BDLF  and CLF, respectively. For ease of reference, the results are shown in Table I.
+
+Finally, it can be noticed from Table I that under the same value of $\bar{\alpha}$, BDLF based method outperforms CLF based method indeed, in additional, we can see clearly that the performance $\gamma^{*}$ increases as $\bar{\alpha}$ decreases, which is expected since
+the decrease of $\bar{\alpha}$ means data loss rate increases.
+
+%Finally, by simulation,  filtering errors under different initial conditions without disturbance is showed in fig. . The curves of the original signal and estimation signal are showed in Fig. ,and Fig. presents the corresponding filtering error.
+\begin{table}
+\caption{Comparison of optimal performance with different $\bar{\alpha}$}
+\centering
+\begin{tabular}{c|c|c|c|c}
+  \hline
+  $\bar{\alpha}$ & 0.9 & 0.8 & 0.7 & 0.6 \\
+  \hline
+  $\gamma^*$ of BDLF based method &0.1575 & 0.2098  & 0.2496 & 0.2848  \\
+  \hline
+  $\gamma^*$ of CLF based method &0.2124  & 0.2612 & 0.3025 & 0.3375 \\
+  \hline
+\end{tabular}
+\end{table}
+\section{Conclusion}\label{sec5}
+In this paper, the problem of $l_2$-$l_\infty$ filter design problem for discrete-time nonlinear switched T-S fuzzy systems with missing measurements has been investigated. Switching phenomena and missing measurements are considered together.  An LMI approach has been introduced to ensure the stochastic stability with a given $l_2$-$l_\infty$ filtering performance index of the filtering error system. Meanwhile, the filter parameters can be achieved easily by solving a set of LMIs. Finally, two illustrative examples are presented to verify the effectiveness of the developed theoretical results.
+It should be noted that in practical  NCSs, there exist many important topics such as uncertainties and time delay, which can also influence the performance of systems and even lead to systems instability. Throughout this paper we have considered the phenomenon of missing measurements only, hence  the investigation of filtering for fuzzy systems with uncertainties and time delay deserve further study in our future work.
+%Besides quantization and switching phenomena in NCSs, there are some interesting topics such as time delays, data dropouts and uncertainties, which also will degrade the performance of systems. It is worthwhile for us to further investigate them together and achieve more practical results in the future work.
+\bibliographystyle{ieeetr}
+\bibliography{references}
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{dong}}]{Shanling Dong}
+%was born in 1990. She received the B.S. degree from
+%Xidian University, Xi'an, China, in 2014. Currently, she is working toward the M.S. degree in
+%Zhejiang University,
+%Hangzhou, China.
+%
+%She is currently with the Institute of Cyber-Systems and Control, Zhejiang University.
+%Her current research interests include the control and filtering problems of fuzzy systems.
+%\end{IEEEbiography}
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{su}}]{Hongye Su} (SM'14)
+%was born in 1969. He received the B.S. degree in industrial
+%automation from the Nanjing University of Chemical Technology,
+%Jiangsu, China, in 1990, and the M.S. and Ph.D. degrees from
+%Zhejiang University, Hangzhou, China, in 1993 and 1995,
+%respectively.
+%
+%He was a Lecturer with the Department of Chemical Engineering,
+%Zhejiang University, from 1995 to 1997. From 1998 to 2000, he was an
+%Associate Professor with the Institute of Advanced Process Control,
+%Zhejiang University. Currently, he is a Professor with the Institute
+%of Cyber-Systems and Control, Zhejiang University. His current
+%research interests include the robust control, time-delay systems,
+%and advanced process control theory and applications.
+%\end{IEEEbiography}
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{shi}}]{Peng Shi}(M'95-SM'98-F'15) received the BSc degree in Mathematics from Harbin Institute of Technology, China; the ME degree in Systems Engineering from Harbin Engineering University, China; the PhD degree in Electrical Engineering from the University of Newcastle, Australia; the PhD degree in Mathematics from the University of South Australia; and the DSc degree from the University of Glamorgan, UK.
+%
+%Dr Shi is currently a professor at the University of Adelaide, and Victoria University, Australia. He was a professor at the University of Glamorgan, UK; a senior scientist in the Defence Science and Technology Organisation, Australia;   a lecturer and post-doctorate at the University of South Australia. His research interests include system and control theory, computational intelligence, and operational research; and he has published widely in these areas. He has actively served in the editorial board of a number of journals, including Automatica, IEEE Transactions on Automatic Control; IEEE Transactions on Fuzzy Systems; IEEE Transactions on Cybernetics; IEEE Transactions on Circuits and Systems-I; and IEEE Access. He is a Fellow of the Institution of Engineering and Technology, and the Institute of Mathematics and its Applications. He was the Chair of Control, Aerospace and Electronics Systems Chapter, IEEE South Australia Section.
+%\end{IEEEbiography}
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{lu}}]{Renquan Lu} (M'08) received the Ph.D. degree in the department of control science and engineering from Zhejiang University, Hangzhou, China, in 2004.
+%
+%He is currently a full Professor with the Guangdong Key Laboratory of IoT Information Processing, Guangdong University of Technology, Guangzhou, China. From June to December in 2008, he served as a Visiting Professor in the Department of Electrical and Computer Engineering, the University of Newcastle, Australia. He has published more than 60 journal papers in the fields of robust control and networked control systems. His research interests include robust control, singular systems, and networked control systems.
+%\end{IEEEbiography}
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{wu}}]{Zheng-Guang Wu}
+%was born in 1982. He received the B.S. and M.S. degrees from
+%Zhejiang Normal University, Jinhua, China, in 2004 and 2007,
+%respectively, and the Ph.D. degree from Zhejiang University,
+%Hangzhou, China, in 2011.
+%
+%He is currently with the Institute of Cyber-Systems and Control, Zhejiang University.
+%His current research interests include hybrid systems, networked systems and computational intel
+%\end{IEEEbiography}
+\end{document}
+\end{document}

@@ -1,0 +1,956 @@
+
+%% bare_conf.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
+%% conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. The IEEE's font choices and paper sizes can   ***
+% *** trigger bugs that do not appear when using other class files.       ***                          ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+\documentclass[conference]{IEEEtran}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+% Some Computer Society conferences also require the compsoc mode option,
+% but others use the standard conference format.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{Asychronous Control for Markov Jump Lure's Systems With Control Saturation}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+%\author{\IEEEauthorblockN{Michael Shell}
+%\IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
+%Georgia Institute of Technology\\
+%Atlanta, Georgia 30332--0250\\
+%Email: http://www.michaelshell.org/contact.html}
+%\and
+%\IEEEauthorblockN{Homer Simpson}
+%\IEEEauthorblockA{Twentieth Century Fox\\
+%Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\and
+%\IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
+%\IEEEauthorblockA{Starfleet Academy\\
+%San Francisco, California 96678--2391\\
+%Telephone: (800) 555--1212\\
+%Fax: (888) 555--1212}}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract
+\begin{abstract}
+	The abstract here.
+\end{abstract}
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+
+
+
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that the IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command,
+% and the \label for the overall figure must come after \caption.
+% \hfil is used as a separator to get equal spacing.
+% Watch out that the combined width of all the subfigures on a 
+% line do not exceed the text width or a line break will occur.
+%
+%\begin{figure*}[!t]
+%\centering
+%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
+%\label{fig_second_case}}
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat[]), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
+% labels, the optional argument to \subfloat must be present. If a
+% subcaption is not desired, just leave its contents blank,
+% e.g., \subfloat[].
+
+
+% An example of a floating table. Note that, for IEEE style tables, the
+% \caption command should come BEFORE the table and, given that table
+% captions serve much like titles, are usually capitalized except for words
+% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
+% and up, which are usually not capitalized unless they are the first or
+% last word of the caption. Table text will default to \footnotesize as
+% the IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that the IEEE does not put floats in the very first column
+% - or typically anywhere on the first page for that matter. Also,
+% in-text middle ("here") positioning is typically not used, but it
+% is allowed and encouraged for Computer Society conferences (but
+% not Computer Society journals). Most IEEE journals/conferences use
+% top floats exclusively. 
+% Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the
+% \fnbelowfloat command of the stfloats package.
+
+
+
+
+\section{Preliminaries}
+Consider a class of discrete-time MJLS on a probability space ($\varOmega,\mathcal{F},\mathcal{P}$):
+\begin{equation}\label{syseq}
+	\left\{
+	\begin{array}{lr}
+		\begin{split}
+			x_{k+1}&=A_{r(k)}x_k+F_{r(k)}\varphi(y_k)+B_{r(k)}u_k\\
+			&+E^x_{r(k)}w_k, \quad y_k=C_{r(k)}x_k,
+		\end{split}
+		\\
+		\begin{split}
+			z_k= & C^z_{r(k)}x_k+G^z_{r(k)}\varphi(y_k)+D^z_{r(k)}u_k\\
+				&+E^z_{r(k)}w_k
+		\end{split}
+		
+	\end{array}
+	\right.
+\end{equation}\\
+%where$A_{r(k)}, F_{r(k)}, B_{r(k)}, E^x_{r(k)}, C^z_{r(k)}, G^z_{r(k)}, D^z_{r(k)}$ and $E^z_{r(k)}$ represent the time-varying system matrices, all of which are pre-known and real, $x_k \in \mathbb{R}^{n_x}, u_k \in \mathbb{R}^{n_u}, y_k\in \mathbb{R}^{n_y}, z_k\in \mathbb{R}^{n_z}$, and $w_k\in\mathbb{R}^{n_w}$ are respectively the state, the control input, the output related to the nonlinearity, the controlled output and the exogenous disturbance vector of system \eqref{syseq} at the instant k.  
+where $x_k\in\mathbb{R}^{n_x}, u_k\in\mathbb{R}^{n_u}, y_k\in\mathbb{R}^{n_y}, z_k\in\mathbb{R}^{n_z}$, and $w_k\in\mathbb{R}^{n_w}$ represent the state, the control input, the output related to the nonlinearity, the controlled output and the exogenous disturbance vector respectively. $A_{r(k)}, F_{r(k)}, B_{r(k)}, E^x_{r(k)}, C^z_{r(k)}, G^z_{r(k)}, D^z_{r(k)}$ and $E^z_{r(k)}$ represent the time-varying system matrices, all of which are pre-known and real.  
+%Where $x_k\in\mathbb{R}^{n_x}$ is the state vector, $u_k\in\mathbb{R}^{n_u}$ is the control input, $y_k\in\mathbb{R}^{n_y}$ is the system output, $z_k\in\mathbb{R}^{n_z}$ is the control output, nad $w_k\in\mathbb{R}^{n_w}$ is the exogenous disturbance in $l_2[0,\infty)$, at the instant $k$. The saturation function $\rm{sat}(\cdot)$ is defined as follows: for any $u\in\mathbb{R}^{n_u}, \mathrm{sat}(u)_{(\ell)}=\mathrm{sign}u_{(\ell)} \min(\rho_{(\ell)},|u_{(\ell)}|),\forall\ell=1,\dots,n_u\}$, where $\ell$ represent the $\ell$th element of the vector and  the vector $0<\rho<\mathbb{R}^n_u$ is assumed to be given. $\{r(k),k\geq0\}$ is a Markov chain taking values in a finite set $\mathcal{N}=\{1,2,\dots,N\}$ with mode TPs:
+%The saturation function $\rm{sat}(\cdot)$ is defined as follows: for any $u\in\mathbb{R}^{n_u}, \mathrm{sat}(u)_{(\ell)}=\mathrm{sign}u_{(\ell)} \min(\rho_{(\ell)},|u_{(\ell)}|),\forall\ell=1,\dots,n_u\}$, where $\ell$ represent the $\ell$th element of the vector and  the vector $0<\rho<\mathbb{R}^n_u$ is assumed to be given. $\{r(k),k\geq0\}$ is a Markov chain taking values in a finite set $\mathcal{N}=\{1,2,\dots,N\}$ with mode TPs:
+%The saturation function $\rm{sat}(\cdot)$ is defined as follows:
+%\begin{equation}
+%\mathrm{sat}(u)_{(\ell)}=\mathrm{sign}(u_{(\ell)}) \min(\rho_{(\ell)},|u_{(\ell)}|),
+%\end{equation}
+%where $\ell \in \{1,\cdots,m\}$ represent the $\ell$th element of the vector and  the pre-given vector $\rho>0$.
+$\{r(k),k\geq0\}$ is a Markov chain taking values in a positive integer set $\mathcal{N}=\{1,2,\dots,N\}$ with mode TPs:
+\begin{equation}
+	\Pr\{r(k+1)=j|r(k)=i\}=\pi_{ij}
+\end{equation}
+Clearly, for all $i,j\in\mathcal{N}$, $\pi_{ij}\in[0,1]$, and $\sum_{j=0}^{N}\pi_{ij}=1$ for each mode $i$. The system matrices in \eqref{syseq} at instant $k$ can be expressed as $A_i,F_i,B_i,E^x_i,C^z_i,G^z_i,D^z_i$ and $E^z_i$, which are real known constant matrices with appropriate dimensions, and the related transition probability matrix is described as $\mathit{\Pi}=\{\pi_{ij}\}$.\\
+\\
+\textbf{Assumption 1:} The function $\varphi(\cdot): \mathbb{R}^{n_y}\rightarrow\mathbb{R}^{n_y}$ satisfies:\\ 
+(1) $\varphi(0)=0$ and \\
+(2) there exists a diagonal positive definite matrix $\varOmega \in\mathbb{R}^{p\times p}$ such that: 
+\begin{equation}\label{cbs}
+\varphi_{(\ell)}(y)[\varphi(y)-\varOmega y ]_{(\ell)}\leq 0.
+\end{equation}
+where for all $y\in\mathbb{R}^{p}$, $\ell \in\{1,\dots,p\}$. And in this case we say that the nonlinearity $\varphi(\cdot) $ satisfies it's own cone bounded sector conditions and to be decentralized. According to \eqref{cbs} we have:
+\begin{equation}\label{scieq}
+	SC(y,\varLambda):= \varphi^{\mathrm{'}}(y)\varLambda[\varphi(y)-\varOmega y]\leq0,
+\end{equation}
+%where $\varLambda$ is any diagonal postive semidefinite matrix, and $\varOmega$ is consider to be given. From the Assumption 1, we have that inequality \label{scieq} yields to $[\varOmega y]_{(\ell)}[\varphi(y)-\varOmega y]_{(\ell)}\leq0, \forall\ell=1,\dots,n_y, \forall y\in\mathbb{R}^{n_y}$, which implies: $\forall y \in \mathbb{R}^{n_y}, 0\leq\varphi^{\mathrm{T}}(y)\varLambda\varphi(y) \leq \varphi^{\mathrm{T}}(y)\varLambda\varphi(y) \leq y^{\mathrm{T}}\varOmega\varLambda\varOmega y$.
+where $\varLambda$ is any diagonal positive semidefinite matrix, and $\varOmega$ is pre-given. From the Assumption 1, we get:
+\begin{equation}
+[\varOmega y]_{(\ell)}[\varphi(y)-\varOmega y]_{(\ell)}\leq0,
+\end{equation}
+which implies:
+\begin{equation}
+ 0\leq\varphi^{\mathrm{'}}(y)\varLambda\varphi(y) \leq \varphi^{\mathrm{'}}(y)\varLambda\varOmega y \leq y^{\mathrm{'}}\varOmega\varLambda\varOmega y
+\end{equation}\\
+\textbf{Definition 1:} System \eqref{syseq} is said to be locally stochastically stable if for $w_(k)=0$ and any initial condition $x_0\in \mathcal{D}_0$, $r_0\in \mathcal{N}$, the following formulation holds:
+\begin{equation}
+	\|x\|^2_2=\sum_{k=0}^{\infty}\mathbb{E}[\|x_k\|^2]<\infty.
+\end{equation} 
+Where in this case the set $\mathcal{D}_0 \subset \mathbb{R}^{p}$ is said to be the domain of stochastic stability of the origin. \\
+\\
+Define $\mathcal{F}_k$ as the $\sigma$-field generated by the random variables $x_k$ and $r(k)$. We define next the class of exogenous disturbances with bounded energy and the finite $\ell_2$-induced norm.
+\\
+\textbf{Definition 2}: For $\gamma>0$, set $\mathcal{W}_{\gamma}$ is defined as follows:
+\begin{equation}
+	\begin{split}
+		\mathcal{W}_{\gamma}&:=\{w=\{w_k\}_{k\in\mathbb{N}};w_k\in\mathbb{R}^{m}, k\in\mathbb{N}, w_k \ \text{is} \\
+		&\mathcal{F}_k\text{-measureable}, \text{and}\  \|w\|^2_2=\sum_{k=0}^{\infty}\mathbb{E}(\|w_k\|)^2<\frac{1}{\gamma}\}.\\
+	\end{split}
+\end{equation}
+The finite $\ell_2$-induced gain associated with the closed-loop system \eqref{syseq} with $x_0=0$ between the disturbance $w=\{w_k\}_{k\in\mathbb{N}}$ and controlled output $z=\{z_k\}_{k\in\mathbb{N}}$ is equal or less than $\sqrt{\varrho}$ if for every $w\in\mathcal{W}_{\gamma}$ then we have
+\begin{equation}
+\frac{1}{\varrho}\|z\|^2_2=\frac{1}{\varrho}\sum_{k=0}^{\infty}\mathbb{E}\left[\|z_k\|^2\right] \leq \|w\|^2_2=\sum_{k=0}^{\infty}\mathbb{E}\left[\|w_k\|^2\right].
+\end{equation}\\
+\\
+In this paper, we consider the following controller:
+\begin{equation}\label{asycontroller}
+u_k=K_{\sigma(k)}x_k+\varGamma_{\sigma(k)}\varphi(y_k) 
+\end{equation}
+where $K_{\sigma(k)}\in \mathbb{N}^{n_u\times n_x}$ is a time-varying controller gain matrix, and $\varGamma_{\sigma(k)}\in \mathbb{N}^{n_u\times n_y}$ is a time-varying nonlinear output feedback gain matrix. The parameter $\{\sigma(k),k\geq0\}$ takes values in another pre-given positive integer set, which is marked as $\mathcal{M}=\{1,2,\dots,M\}$ subject to the pre-known conditional probability matrix $\varPhi=\{\mu_{im} \}$, the probabilities of which are defined by
+\begin{equation}
+\Pr\{\sigma(k)=\phi|r(k)=i\}=\mu_{i\phi}.
+\end{equation}
+Where for all $i\in\mathcal{N}, \phi\in\mathcal{M}, \mu_{i\phi}\in [0,1]$, and $\sum_{\phi=1}^{M}\mu_{i\phi}=1$ for each $i\in\mathcal{N}$.\\
+\\
+%\textbf{Remark 1}: In practice, the information of the system modes can not be fully accessed to controller or not fully accurate, that is, the actual modes of system are hidden to the controller, which leads to the controller don't synchronize with system modes. Thus, we introduce $\sigma(k)$ to present the relationship between system modes and controller modes, and the set $(r(k),\sigma(k),\varPi,\varPhi)$ constructs a hidden Markov model. \\
+%\\
+%In this paper, we define the dead-zone nonlinearity $\delta(u)$ as follows:$\delta(u)=u-\mathrm{sat}(u)$, for any $u\in\mathbb{R}^{m}$. 
+Combing the asynchronous controller \eqref{asycontroller} and system \eqref{syseq} we have the following closed system:
+%\begin{equation}\label{close_system_equation}
+%\left\{
+%\begin{array}{lr}
+%\begin{split}
+%x_{k+1}=&(A_i+B_iK_m)x_k+(F_i+B_i\varGamma_m)\varphi(y_k)\\
+%&+E_i^xw_k\\
+%\end{split}
+%\\
+%\begin{split}
+%z_k=&(C^z_i+D_i^zK_m)x_k+(G^z_i+D^z_i\varGamma_m)\varphi(y_k)\\
+%&+E^z_iw_k
+%\end{split}
+%\end{array}
+%\right.
+%\end{equation} 
+%\\
+\begin{equation}\label{close_system_equation_2}
+\left\{
+\begin{array}{lr}
+\begin{split}
+x_{k+1}=\bar{A}_{i\theta}x_k+\bar{F}_{i\theta}\varphi_{i}(C_ix_k)+E_i^xw_k\\
+\end{split}
+\\
+\begin{split}
+z_k=\bar{C}_{i\theta}x_k+\bar{G}_{i\theta}\varphi_{i}(C_ix_k)+E^z_iw_k
+\end{split}
+\end{array}
+\right.
+\end{equation} 
+Where,for $i \in \mathcal{N}, \phi \in \mathcal{M}$
+\begin{equation} \notag
+\begin{aligned}
+\bar{A}_{i\phi}=A_{i}+B_{i}K_{\phi},  \qquad \bar{F}_{i\phi}=F_{i}+B_{i}\varGamma_{i\phi} \\
+\bar{C}^{z}_{i\phi}=C^{z}_{i}+D^{z}_{i}K_{\phi}, \qquad \bar{G}^{z}_{i\phi}=G^{z}_{i}+D^{z}_{i}\varGamma_{\phi}
+\end{aligned}
+\end{equation}
+
+%We consider a generalized local sector condition $\delta(u)=u-\mathrm{sat}(u)$, and use $\rho$ to denote the bounds of saturation function $\mathrm{sat}(u)$. For given matrices $H_m\in\mathbb{R}^{n+p}$, we define the set $\mathcal{S}(H_m,\rho):=\{\xi\in\mathbb{R}^{n_x+n_y};-\rho\leq H_m\xi\leq\rho, \forall m\in \mathcal{M} \}$.
+%\\
+%\textbf{Lemma 3}. Consider matrices $\widehat{K_m}=[K_m \ \varGamma_m]\in\mathbb{N}^{m\times(n+p)}$ and $\widehat{J_m}=[J_{1,m} \ J_{2,m}]\in\mathbb{N}^{m\times(n+p)}$. If $\widehat{x}=[x^{'} \ \varphi^{'}(C_ix) ]^{'} \in \mathcal{S}(\widehat{K_m}-\widehat{J_m},\rho)$, for $u=K_mx+\varGamma_m\varphi(C_ix)$ we have that the nonlinearity $\delta(u)$ satisfies the following sector condition for any diagonal positive definite matrix $T_m\in\mathbb{R}^{m\times m}$:
+%\begin{equation}
+%\begin{split}
+%SC_u(i,m,u,x,T_m):= &\delta^{'}(u)T_m^{-1}[\delta(u)-\widehat{J_m}\widehat{x}]\leq 0.
+%\end{split}
+%\end{equation}
+%\\
+
+
+
+
+\section{Main Result}
+ 
+%\begin{equation}\label{close_system_equation_1}
+%\left\{
+%\begin{array}{lr}
+%\begin{split}
+%x_{k+1}=&(A_i+B_iK_m)x_k+(F_i+B_i\varGamma_m)\varphi(y_k)\\
+%&-B_i\delta(u_k)+E_i^xw_k\\
+%\end{split}
+%\\
+%\begin{split}
+%z_k=&(C^z_i+D_i^zK_m)x_k+(G^z_i+D^z_i\varGamma_m)\varphi(y_k)\\
+%&-D_i^z\delta(u_k)+E^z_iw_k
+%\end{split}
+%\end{array}
+%\right.
+%\end{equation} 
+
+\begin{equation}\notag
+\left\{
+\begin{array}{lr}
+\begin{split}
+x_{k+1}=\bar{A}_{i\theta}x_k+\bar{F}_{i\theta}\varphi_{i}(C_ix_k)+E_i^xw_k\\
+\end{split}
+\\
+\begin{split}
+z_k=\bar{C}_{i\theta}x_k+\bar{G}_{i\theta}\varphi_{i}(C_ix_k)+E^z_iw_k
+\end{split}
+\end{array}
+\right.
+\end{equation} 
+
+%LavFunction:
+%\begin{equation}
+%	V(x_k,r(k)) = x_k^{'}P_{r(k)}x_k+2\varphi^{'}(C_{r(k)}x_k)\varDelta_{r(k)}\varOmega_{r(k)} C_{r(k)}x_k
+%\end{equation}
+%
+%\begin{equation}
+%	\begin{split}
+%		E\{\varDelta V(k)\}=&E\{V(k+1,x_{k+1},r(k+1)=j|x_k,r(k)=i\}\\
+%							&-V(k,x_k,i)
+%	\end{split}
+%\end{equation}
+%
+%
+%\begin{equation}
+%\begin{split}
+%&E\{V(x_{k+1},r(k+1)=j|x_k,r(k)=i\}\\
+%&=E\{x_{k+1}^{'}(\sum_{j=1}^{N}\pi_{ij}P_{j})x_{k+1} + 2\sum_{j=1}^{N}\pi_{ij}\varphi^{'}(C_jx_{k+1})\varDelta_{j}\varOmega_{j}C_jx_{k+1}  \}\\
+%&=E\{x_{k+1}^{'}(\sum_{j=1}^{N}\pi_{ij}P_{j})x_{k+1} +x^{'}_{k+1}\sum_{j=1}^{N}\pi_{ij}C^{'}_{j}\varOmega_{j}\varDelta_{j}\varphi(C_jx_{k+1})    \}
+%\end{split}
+%\end{equation}
+
+System \eqref{close_system_equation_2} is stochastically stable, if for all $i \in \mathcal{N}$ and $\theta \in \mathcal{M}$, there exist positive definite matrices $\bar{P_i} \in \mathbb{R}^{n_x\times n_x}$, $R_{i\theta } \in \mathbb{R}^{(n_x+n_y)\times(n_x+n_y)}$, matrices $K_{\theta} \in \mathbb{R}^{n_u\times n_x}$, $\varGamma_{\theta} \in \mathbb{R}^{n_u \times n_y}$ and positive semidefinite matrix $T_{i}\in \mathbb{R}^{n_y}$ to  ensure \eqref{condition_1_1} and \eqref{condition_1_2} hold.
+\begin{equation}\label{condition_1_1}
+\begin{bmatrix}
+-R_{i\theta}&\mathscr{H}_{i\phi}\\
+*&\mathscr{P}_{i}
+\end{bmatrix}<0
+\end{equation}
+
+
+\begin{equation}\label{condition_1_2}
+\begin{bmatrix}
+\mathscr{S}_{i\phi}&\mathscr{N}_{i\phi}\\
+*&\mathscr{L}_{i\phi}
+\end{bmatrix}<0
+\end{equation}
+
+
+\begin{equation}\notag
+\begin{bmatrix}
+-R_{i\theta}&\sqrt{\pi_{i1}}\hat{A}^{'}_{i\theta}&\cdots&\sqrt{\pi_{iN}}\hat{A}^{'}_{i\theta}\\
+\sqrt{\pi_{i1}}A_{i\theta}&-\bar{P_1}\\
+\vdots & &\ddots\\
+\sqrt{\pi_{iN}}A_{i\theta}&& & -\bar{P}_{N}
+\end{bmatrix}<0
+\end{equation}
+
+
+\begin{equation}\notag
+\begin{bmatrix}
+	\begin{bmatrix}
+	-\bar{P}_{i}&0\\
+	*&H_{i\theta}
+	\end{bmatrix}&
+	\sqrt{u_{i1}}\begin{bmatrix}
+					\bar{P_i}&\\
+					&R_{i1}
+				 \end{bmatrix}&
+	\cdots&
+	\sqrt{u_{iM}}\begin{bmatrix}
+				     \bar{P_i}&\\
+					 &R_{iM}
+				 \end{bmatrix}\\ \\
+	\sqrt{u_{i1}}\begin{bmatrix}
+					 \bar{P_i}&\\
+				 	 &R_{i1}
+				 \end{bmatrix}&
+	\begin{bmatrix}
+		-I&\\
+		&-R_{i1}
+	\end{bmatrix}&\\ \\ \vdots&&\ddots\\ \\
+	\sqrt{u_{iM}}\begin{bmatrix}
+				 	 \bar{P_i}&\\
+					 &R_{iM}
+				 \end{bmatrix}&&&
+	\begin{bmatrix}
+		-I&\\
+		&-R_{iM}
+	\end{bmatrix}
+				 
+\end{bmatrix}<0
+\end{equation}
+where \\
+\begin{equation}\notag
+	\begin{aligned}
+		\mathscr{H}_{i\phi}=\begin{bmatrix}
+			\sqrt{\pi_{i1}}\hat{A}_{i\phi}\\
+			\sqrt{\pi_{i2}}\hat{A}_{i\phi}\\
+			\vdots\\
+			\sqrt{\pi_{i_N}}\hat{A}_{i\phi}
+		\end{bmatrix}^{'},
+		\mathscr{P}_{i\phi}=\mathrm{diag} \{-\bar{P}_{1},-\bar{P}_{2},\dots,-\bar{P}_{N}  \}\\
+		\hat{A}_{i\theta}=\begin{bmatrix}
+			\bar{A}_{i\theta}&\bar{F}_{i\theta}
+		\end{bmatrix}  \\
+		\mathscr{S}_{i\phi} = \begin{bmatrix}
+			-P_{i}&0&0\\
+			*&-I&C^{'}_{i}\varDelta_{i}T_{i}\\
+			*&*&-2T_{i}
+		\end{bmatrix}\\
+		\mathscr{N}_{i\phi}=\begin{bmatrix}
+				\sqrt{u_{i1}}\begin{bmatrix}
+				\bar{P}_{i}&\\
+				&R_{i1}
+			\end{bmatrix}&
+			\dots&	
+			\sqrt{u_{iM}}\begin{bmatrix}
+				\bar{P}_{i}&\\
+				&R_{iM}
+			\end{bmatrix}&
+		\end{bmatrix} \\
+		\mathscr{L}_{i\phi}=\mathrm{diag}\{\begin{bmatrix}
+			-I&\\
+			&-R_{i1}
+		\end{bmatrix},\dots,
+		\begin{bmatrix}
+			-I&\\
+			&-R_{iM}
+		\end{bmatrix}  \}
+	\end{aligned}
+\end{equation}
+
+
+
+\begin{equation*}
+H_{i\theta}=\begin{bmatrix}
+-I&C^{'}_{i}\varDelta_{i}T_{i} \\
+*&-2T_{i}
+\end{bmatrix}
+\end{equation*}
+
+Proof: Construct a Lyapunov function in the form of \eqref{lyapunov_funciton}.
+\begin{equation}\label{lyapunov_funciton} 
+	V(k,x_k,r(k))=x^{'}_{k}P_{r(k)}x_{k}
+\end{equation}
+Where $P_{r(k)}=\bar{P}^{-1}_{r(k)}$. Denoting $h_{i\phi} = \mathrm{diag}\{P_{i}, I_{n_x+n_y},\{\mathrm{diag}(I_{n_x},R^{-1}_{i\phi})^{M}_{\phi=1} \} \}$
+\\  \eqref{condition_1_2} mulitply $ diag(P_i,I_{nx+ny},\{diag(I_{nx},R_{i\theta}^{-1}\}_{\theta=1}^{M})) $ in the left and right with it's transpose, then we get:
+\begin{equation}\nonumber
+\begin{bmatrix} 
+\begin{bmatrix}
+-P_{i}&0\\
+*&H_{i\theta}
+\end{bmatrix}&
+\sqrt{u_{i1}}\begin{bmatrix}
+I&\\
+&I
+\end{bmatrix}&
+\cdots&
+\sqrt{u_{iM}}\begin{bmatrix}
+I&\\
+&I
+\end{bmatrix}\\ \\
+\sqrt{u_{i1}}\begin{bmatrix}
+I&\\
+&I
+\end{bmatrix}&
+\begin{bmatrix}
+-I&\\
+&-R^{-1}_{i1}
+\end{bmatrix}&\\ \\ \vdots&&\ddots\\ \\
+\sqrt{u_{iM}}\begin{bmatrix}
+I&\\
+&I
+\end{bmatrix}&&&
+\begin{bmatrix}
+-I&\\
+&-R^{-1}_{iM}
+\end{bmatrix}
+
+\end{bmatrix} <0
+\end{equation}
+According to Schur we get:
+\begin{equation} \label{cons}
+\sum_{\theta=1}^{M}u_{i\theta} \begin{bmatrix}
+I&\\
+&R_{i\theta}
+\end{bmatrix} + \begin{bmatrix}
+-Pi&\\
+&H_{i\theta}
+\end{bmatrix} <0
+\end{equation}
+\eqref{cons} multiply $(x_k,x_k,\varphi_{i}(C_{i}x_k))^{'}$ on left and it's transpose on the right. We get\\
+$\hat{x}_k\sum_{\theta=1}^{M}u_{i\theta}R_{i\theta}\hat{x}_k-x^{'}_{k}P_{i}x_{k}-2SC(i,x_k,T_i)<0$
+\\
+According \eqref{condition_1_1}, By Schur complements. We get:\\
+$\hat{A}_{i\theta}\sum_{j=1}^{N}\pi_{ij}P_j\hat{A}_{i\theta}<R_{i\theta}$\\
+\begin{equation}
+...
+\end{equation}
+
+
+%\begin{equation}\nonumber
+%\begin{aligned}
+%&\sum^{r}_{i=1}\sum^{r}_{j=1}\sum^{r}_{s=1}h_{i}h_{j}h^+_{s} \Xi_{lijs}\\=&
+%\begin{bmatrix}
+%\Theta_{11}&\Theta_{12}&0&0&\Theta_{13}&\hat{A}_{flh}&\Theta_{14}\\
+%*&\Theta_{21}&0&0&\Theta_{22}&\hat{A}_{flh}&\Theta_{23}\\
+%*&*&\Theta_{11}&\Theta_{12}&\mu\hat{B}_{flh}C_{lh}&0&\mu\hat{B}_{flh}D_{lh}\\
+%*&*&*&\Theta_{21}&\mu\hat{B}_{flh}C_{lh}&0&\mu\hat{B}_{flh}D_{lh}\\
+%*&*&*&*&-F_{1lh}&-F_{2lh}&0\\
+%*&*&*&*&*&-F_{3lh}&0\\
+%*&*&*&*&*&*&-I
+%\end{bmatrix}\\=&
+%\begin{bmatrix}
+%\mathcal{S}&0&G^{T}_{l}A_{1lh}&G^{T}_{l}B_{1lh}\\
+%*&\mathcal{S}&\mu G^{T}_{l}A_{2lh}&\mu G^{T}_{l}B_{2lh}\\
+%*&*&-F_{lh}&0\\
+%*&*&*&-I
+%\end{bmatrix}<0
+%\end{aligned}热
+%\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% conference papers do not normally have an appendix
+
+% use section* for acknowledgment
+\section*{Acknowledgment}
+
+
+The authors would like to thank...
+
+
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+\begin{thebibliography}{1}
+
+	\bibitem{IEEEhowto:kopka}
+	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+\end{thebibliography}
+
+
+
+
+% that's all folks
+\end{document}
+
+
+
+
+
