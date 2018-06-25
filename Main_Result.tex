@@ -1036,7 +1036,11 @@ Furthermore, noticing the condition given in \eqref{scieq}, we further have $\ma
 \begin{equation}
 	\mathbb{E}\{\varDelta V(k)+z^{'}_{k}z_{k}-\gamma^{2}w^{'}_{k}w_{k}|x_{k},r(k)=i \}<0
 \end{equation}
-Noting the zero initial condition , we can conclude that $\frac{\|z\|_{2}}{\|w\|_2}<\gamma $ is satisfied, which completes the proof.
+Noting the zero initial condition , we can conclude that $\frac{\|z\|_{2}}{\|w\|_2}<\gamma $ is satisfied, which completes the proof. \\
+Remark: It's easy to find that, if \eqref{condition_2_1} and \eqref{condition_2_2} holds, the asynchronous controller can be designed based on Theorem 2. The optimal $l_2$ performance $\gamma^{*}$ can be obtained via dealing with the optimal problem as follows: \\ 
+\begin{equation}
+	\mathrm{min}\quad \sigma \quad \mathrm{subject \ to} \ \eqref{condition_2_1} \ \mathrm{and} \ \eqref{condition_2_2} \ \mathrm{with} \ \sigma=\gamma^{2} 
+\end{equation}
 
 \section{Numerical Example}
 
@@ -1085,45 +1089,26 @@ In this section, we provide an example to verify the validity of proposed method
 		\varPi&=\begin{bmatrix}
 			0.6&0.4\\
 			0.2&0.8
+		\end{bmatrix} \quad
+		\varPhi=\begin{bmatrix}
+			0.4&0.6\\
+			0.3&0.7
 		\end{bmatrix}
 	\end{aligned}  
 \end{equation}
-Furthermore, three cases of conditional probability matrix $\varPhi$ are given in \tablename{table1}
-\begin{table} \label{table1}
-
-	\begin{tabular}{|1|1|1|}
-		\hline
-		\begin{tabular}{|l|l|l|}  
-			\hline  
-			id & name & sex \\  
-			\hline  
-			1 & 张三 & 女\\  
-			\hline  
-			2 & 李四 & male \\  
-			\hline  
-		\end{tabular} 
-		\begin{tabular}{|l|l|l|}  
-			\hline  
-			id & name & sex \\  
-			\hline  
-			1 & 张三 & 女\\  
-			\hline  
-			2 & 李四 & male \\  
-			\hline  
-		\end{tabular} 
-		\begin{tabular}{|l|l|l|}  
-			\hline  
-			id & name & sex \\  
-			\hline  
-			1 & 张三 & 女\\  
-			\hline  
-			2 & 李四 & male \\  
-			\hline  
-		\end{tabular} 
-	\end{tabular}
-	 
-\end{table}
-
+We can get following controller gain matrices by solving the LMIs in \eqref{condition_2_1} and \eqref{condition_2_2}:
+\begin{equation}\notag
+	\begin{aligned}
+		K_{1}=\begin{bmatrix}
+			-1.0266&-1.2008
+		\end{bmatrix},\quad
+		\varGamma_{1}=-2.4363 \\
+		K_{2}=\begin{bmatrix}
+		-1.1812&-0.9191
+		\end{bmatrix},\quad
+		\varGamma_{2}=-2.2642
+	\end{aligned}
+\end{equation}
 
 
 

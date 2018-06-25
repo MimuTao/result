@@ -54,8 +54,8 @@ N = 2;  % number of mode i.
 M = 2;  % number of mode m.
 
 P_Matrix = [0.6 0.4; 0.2 0.8];
-% M_Matrix = [ 0.4 0.6; 0.3 0.7];
-M_Matrix = [0.4 0.6; 0 1];
+M_Matrix = [ 0.4 0.6; 0.3 0.7];
+% M_Matrix = [0.4 0.6; 0 1];
 % M_Matrix = [1 0; 0 1];
 % M_Matrix = [1 0 0; 0 1 0; 0 0 1];
 % M_Matrix = [0 0 1; 0 1 0; 0 0 1];
@@ -235,8 +235,8 @@ figure
 stairs([1:1:final_time],pmode);
 figure
 stairs([1:1:final_time],kmode);
-figure
-plot([1:1:final_time],w);
+% figure
+% plot([1:1:final_time],w);
 
 x{1} = [2; -2.5];
 for i=1:final_time-1
@@ -257,5 +257,5 @@ end
 figure
 % plot([1:1:final_time],x1); hold on;
 % plot([1:1:final_time],x2); 
-stairs([1:1:final_time],x1); hold on;
-stairs([1:1:final_time],x2); 
+stairs([1:1:final_time],x1,'-'); hold on;
+stairs([1:1:final_time],x2,'-.'); 
