@@ -56,6 +56,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{subfigure}
 \usepackage{bm}
 \usepackage[colorlinks,linkcolor=blue]{hyperref}
 % Some Computer Society conferences also require the compsoc mode option,
@@ -1037,7 +1039,7 @@ Furthermore, noticing the condition given in \eqref{scieq}, we further have $\ma
 	\mathbb{E}\{\varDelta V(k)+z^{'}_{k}z_{k}-\gamma^{2}w^{'}_{k}w_{k}|x_{k},r(k)=i \}<0
 \end{equation}
 Noting the zero initial condition , we can conclude that $\frac{\|z\|_{2}}{\|w\|_2}<\gamma $ is satisfied, which completes the proof. \\
-Remark: It's easy to find that, if \eqref{condition_2_1} and \eqref{condition_2_2} holds, the asynchronous controller can be designed based on Theorem 2. The optimal $l_2$ performance $\gamma^{*}$ can be obtained via dealing with the optimal problem as follows: \\ 
+Remark: It's easy to find that, if \eqref{condition_2_1} and \eqref{condition_2_2} holds, the asynchronous controller can be designed based on Theorem 2. The optimal $l_2$-gain performance $\gamma^{*}$ can be obtained via dealing with the optimal problem as follows: \\ 
 \begin{equation}
 	\mathrm{min}\quad \sigma \quad \mathrm{subject \ to} \ \eqref{condition_2_1} \ \mathrm{and} \ \eqref{condition_2_2} \ \mathrm{with} \ \sigma=\gamma^{2} 
 \end{equation}
@@ -1096,7 +1098,7 @@ In this section, we provide an example to verify the validity of proposed method
 		\end{bmatrix}
 	\end{aligned}  
 \end{equation}
-We can get following controller gain matrices by solving the LMIs in \eqref{condition_2_1} and \eqref{condition_2_2}:
+By solving the $l_2$-gain optimisation problem, it is easy to find that $\gamma^{*}=2.41$ and following asynchronous controller gain matrices can be obtained.
 \begin{equation}\notag
 	\begin{aligned}
 		K_{1}=\begin{bmatrix}
@@ -1110,8 +1112,28 @@ We can get following controller gain matrices by solving the LMIs in \eqref{cond
 	\end{aligned}
 \end{equation}
 
+\begin{figure}[!htb]
+	\centering\includegraphics[scale=0.15]{./simulink/mode_p.png}\\
+	\centering\includegraphics[scale=0.15]{./simulink/mode_k.png}\\
+	\caption{Modes of system and controller}
+	\label{fig.1}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering\includegraphics[scale=0.35]{./simulink/state.png}\\
+	\caption{System state}
+	\label{fig.2}
+\end{figure}
+
+Fig.1 gives a possible time sequences of the mode of system and asynchronous controller. We select the initial state $x_{0}=\begin{bmatrix}
+	2&-2.5
+\end{bmatrix}^{'}$, and the external disturbance is assumed to be $w_{k} = sin(k)*0.9^{k}$. Then we can get state response of system, which is depicted in Fig.2.
 
 
+
+
+\section{Conclusions}
+The stochastic stability anslysis and $l_{2}$-gain optimisation problems for a class of discrete-time nonlinear Markov systems with asynchronous controller have been discussed in this paper.
 
 % conference papers do not normally have an appendix
 
@@ -1152,7 +1174,15 @@ The authors would like to thank...
 	\bibitem{IEEEhowto:kopka}
 	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
 	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
+	\bibitem{IEEEhowto:kopka}
+	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+	\bibitem{IEEEhowto:kopka}
+	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+	\bibitem{IEEEhowto:kopka}
+	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
 \end{thebibliography}
 
 
