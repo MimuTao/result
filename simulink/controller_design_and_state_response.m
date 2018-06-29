@@ -239,23 +239,29 @@ stairs([1:1:final_time],kmode);
 % plot([1:1:final_time],w);
 
 x{1} = [2; -2.5];
+u{1}=0;
 for i=1:final_time-1
     mode_p = pmode(i);
     mode_k = kmode(i);
     if mode_p==1
         x{i+1} = (A{mode_p}+B{mode_p}*controllerK{mode_k})*x{i}+(F{mode_p}+B{mode_p}*controllerG{mode_k})*0.5*iOmeg1*C{mode_p}*x{i}*(1+cos(25*C{mode_p}*x{i}))+Ex{mode_p}*w(i);
+        u{i} = controllerK{mode_k}*x{i}+controllerG{mode_k}*0.5*iOmeg1*C{mode_p}*x{i}*(1+cos(25*C{mode_p}*x{i}));
     else
         x{i+1} = (A{mode_p}+B{mode_p}*controllerK{mode_k})*x{i}+(F{mode_p}+B{mode_p}*controllerG{mode_k})*0.5*iOmeg2*C{mode_p}*x{i}*(1-sin(20*C{mode_p}*x{i}))+Ex{mode_p}*w(i);
+        u{i} = controllerK{mode_k}*x{i}+controllerG{mode_k}*0.5*iOmeg2*C{mode_p}*x{i}*(1-sin(20*C{mode_p}*x{i}));
     end
 %     x{i+1} = (A{mode_p}+B{mode_p}*controllerK{mode_k})*x{i}+(F{mode_p}+B{mode_p}*controllerG{mode_k})*C{mode_p}*x{i}+Ex{mode_p}*w(i);
 end
-
+u{100}=0;
 for i=1:final_time
     x1(i) = x{i}(1);
     x2(i) = x{i}(2);
+    us(i) = u{i}(1);
 end
 figure
 % plot([1:1:final_time],x1); hold on;
 % plot([1:1:final_time],x2); 
 stairs([1:1:final_time],x1,'-'); hold on;
-stairs([1:1:final_time],x2,'-.'); 
+stairs([1:1:final_time],x2,'-.');
+figure
+stairs([1:1:final_time],us,'-');
