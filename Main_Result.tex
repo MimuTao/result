@@ -328,7 +328,7 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Asychronous Control for Markov Jump Lure's Systems With Control Saturation}
+\title{Asychronous Control for Markov Jump Lure's Systems}
 
 
 % author names and affiliations
@@ -388,7 +388,7 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-	The abstract here.
+	This paper is concerned with the control problems for a class of discrete-time Lur'e systems with asynchronous controller. A hidden Markov model (HHM) is introduced to describe the asynchronous phenomenon between the systems mode and controller modes. The linear matrix inequality (LMI) approach is utilized to analyze the stability of the closed-loop system and $l_2$-gain performance.  Then a sufficient condition is proposed in the form of LMI to guarantee the stochastic stability of the closed-loop system, and to minimize the obtained $l_2$-gain from the disturbance to output, further more the asynchronous controller can be designed by solving the given conditions. A simulation example is given to demonstrate the effectiveness of the proposed method. 
 \end{abstract}
 
 % no keywords
@@ -405,11 +405,19 @@
 % For peerreview papers, this IEEEtran command inserts a page break and
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
-
-
+  
+   
 
 \section{Introduction}
+	As an important class of stochastic switching systems, Markov jump systems (MJSs) have received considerable attention because of its powerful ability in modeling systems with abrupt change in parameters or system structures, for instance,  environmental disturbances, actuators failures, and variations in subsystems interconnections. Over the past few decades, a large number of works for stability analysis and the controller/filter design have been published[1234]. For example,     \\
+	
+%	但是，现如今存在的大多数成果都默认控制器的模态是已知的，且与系统模态保持一致，但是在实际应用中，这种情况可能会因为种种原因很难获得保证。也就是说，异步的情况是更合理的。 到现在，已经有少量的成果被提出来来解决这种情况，主要可以分成两种情况，我们分别称之为独立性模型，和异步控制模型。独立控制模型认为控制器的模态由一个新的Markov chin链描述，但是控制器的模态是相对于系统模态独立的，但是这种情况显然没有充分利用系统的信息，因此异步控制器模型被随之被研究。异步控制器认为，控制器的模态是有一个隐马尔科夫链控制的，且于系统模态有关。 在文献【wu】 的文章中首次系统的提出了基于隐马尔科夫模型的异步控制/滤波方法，同时该方法包含了同步的情况。...，在文献[23]中，带有不确定TP的异步线性马尔科夫稳定性问题进行了讨论。
+%	
+	In most existing works, it was  implicitly assumed that the information of system modes can be fully accessible for the controller/filter all the time, so that controller/filter modes can run synchronously with system modes. Unfortunately, in practical applications, it is rather difficult to satisfy this ideal assumption because of some unexpected factors, for instance, time delays, data dropouts and quantization in network control systems. In order to overcome this strict limitation, two research approach on control/filtering of MJSs were proposed, namely, mode-independent and asynchronous methods. In mode-independent methods\cite{mode_independent_T}\cite{mode_independent_wuhuaining}, the controller modes is independent with plant modes, which means have no use of system information and may result in some conservatism. Therefore, asynchronous methods on control/filtering problems for MJSs gain more attention in recent years. For example,  a piecewise homogeneous Markov chain was utilized to design an asynchronous $l_2$-$l_\infty$ filter for discrete-time MJSs with randomly occurred sensor nonlinearities in \cite{l2_filter_wu}. After that, in \cite{passive_wu}, a new strategy based on HMM framework was adopted in passivity-based asynchronous control problems, which covers the synchronous situation. Very recently, many works on asynchronous control/filtering problem of MJSs have been published based on this powerful model. For instance, asynchronous filter design of discrete-time Markov Jump Systems was discussed in \cite{filter_shenying}\cite{filter_zhangmeng}, the same issue was discussed in continuous-time domain in \cite{continus_filter_dongshanling}, and asynchronous $l_2$-$l_{\infty}$ control problem for discrete-time Markovian jump linear systems with partly accessible controller mode information was addressed in \cite{unknown_asynchronous_control}. 
 
+	However, as we can know, the issue of stability and stabilization for discrete-time Lur'e systems with asynchronous controller have not been discussed yet, which remains to be explored.
+	
+	On the other hand, the so called Lur’e system [7], which is consisted of a linear part and a sector-bounded nonlinearity part, has gained considerable attentions.
 
 
 
@@ -590,8 +598,9 @@ where $K_{\sigma(k)}\in \mathbb{N}^{n_u\times n_x}$ is a time-varying controller
 \begin{equation}
 \Pr\{\sigma(k)=\phi|r(k)=i\}=\mu_{i\phi}.
 \end{equation}
-Where for all $i\in\mathcal{N}, \phi\in\mathcal{M}, \mu_{i\phi}\in [0,1]$, and $\sum_{\phi=1}^{M}\mu_{i\phi}=1$ for each $i\in\mathcal{N}$.\\
-\\
+Where for all $i\in\mathcal{N}, \phi\in\mathcal{M}, \mu_{i\phi}\in [0,1]$, and $\sum_{\phi=1}^{M}\mu_{i\phi}=1$ for each $i\in\mathcal{N}$.\\ \\
+Reamrk1: It's easy to find that $\sigma$
+\\ \\
 %\textbf{Remark 1}: In practice, the information of the system modes can not be fully accessed to controller or not fully accurate, that is, the actual modes of system are hidden to the controller, which leads to the controller don't synchronize with system modes. Thus, we introduce $\sigma(k)$ to present the relationship between system modes and controller modes, and the set $(r(k),\sigma(k),\varPi,\varPhi)$ constructs a hidden Markov model. \\
 %\\
 %In this paper, we define the dead-zone nonlinearity $\delta(u)$ as follows:$\delta(u)=u-\mathrm{sat}(u)$, for any $u\in\mathbb{R}^{m}$. 
@@ -716,29 +725,29 @@ System \eqref{close_system_equation_2} with $x_0=0$ and $w_{k}=0$ is stochastica
 \end{equation}
 
 
-\begin{equation}\notag
-\begin{bmatrix}
--R_{i\theta}&\sqrt{\pi_{i1}}\hat{A}^{'}_{i\theta}&\cdots&\sqrt{\pi_{iN}}\hat{A}^{'}_{i\theta}\\ \\
-\sqrt{\pi_{i1}}\hat{A}_{i\theta}&-\bar{P_1}&0&0\\ \\
-\vdots &0&\ddots&0\\ \\
-\sqrt{\pi_{iN}}\hat{A}_{i\theta}&0&0& -\bar{P}_{N}
-\end{bmatrix}<0
-\end{equation}
-
-
-\begin{equation}\notag
-\begin{bmatrix}
-	\mathscr{S}_{i\phi}&
-	\sqrt{u_{i1}}\mathscr{N}_{i1}&
-	\cdots&
-	\sqrt{u_{iM}}\mathscr{N}_{iM}\\  \\
-	\sqrt{u_{i1}}\mathscr{N}_{i1}&
-	L_{i1}&0&0\\  \\
-	\vdots&0&\ddots&0\\  \\
-	\sqrt{u_{iM}}\mathscr{N}_{iM}&0&0&L_{iM}
-				 
-\end{bmatrix}<0
-\end{equation}
+%\begin{equation}\notag
+%\begin{bmatrix}
+%-R_{i\theta}&\sqrt{\pi_{i1}}\hat{A}^{'}_{i\theta}&\cdots&\sqrt{\pi_{iN}}\hat{A}^{'}_{i\theta}\\ \\
+%\sqrt{\pi_{i1}}\hat{A}_{i\theta}&-\bar{P_1}&0&0\\ \\
+%\vdots &0&\ddots&0\\ \\
+%\sqrt{\pi_{iN}}\hat{A}_{i\theta}&0&0& -\bar{P}_{N}
+%\end{bmatrix}<0
+%\end{equation}
+%
+%
+%\begin{equation}\notag
+%\begin{bmatrix}
+%	\mathscr{S}_{i\phi}&
+%	\sqrt{u_{i1}}\mathscr{N}_{i1}&
+%	\cdots&
+%	\sqrt{u_{iM}}\mathscr{N}_{iM}\\  \\
+%	\sqrt{u_{i1}}\mathscr{N}_{i1}&
+%	L_{i1}&0&0\\  \\
+%	\vdots&0&\ddots&0\\  \\
+%	\sqrt{u_{iM}}\mathscr{N}_{iM}&0&0&L_{iM}
+%				 
+%\end{bmatrix}<0
+%\end{equation}
 where \\
 \begin{equation}\notag
 	\begin{aligned}
@@ -878,15 +887,15 @@ Theorem 2: For each mode $i\in\mathcal{N}$ and $\phi\in\mathcal{M}$, if there ex
 	\end{bmatrix}<0
 \end{equation}
 
-\begin{equation}\notag
-\begin{bmatrix}
--R_{i\theta}&\sqrt{\pi_{i1}}\hat{A}^{'}_{i\theta}&\cdots&\sqrt{\pi_{iN}}\hat{A}^{'}_{i\theta}&\hat{A}^{z}_{i\phi} \\ \\
-\sqrt{\pi_{i1}}\hat{A}_{i\theta}&-\bar{P_1}&0&0&0\\ \\
-\vdots &0&\ddots&0&0\\ \\
-\sqrt{\pi_{iN}}\hat{A}_{i\theta}&0&0& -\bar{P}_{N}&0\\ \\
-\hat{A}^{z}_{i\phi}&0&0&0&-I_{n_w}
-\end{bmatrix}<0
-\end{equation}
+%\begin{equation}\notag
+%\begin{bmatrix}
+%-R_{i\theta}&\sqrt{\pi_{i1}}\hat{A}^{'}_{i\theta}&\cdots&\sqrt{\pi_{iN}}\hat{A}^{'}_{i\theta}&\hat{A}^{z}_{i\phi} \\ \\
+%\sqrt{\pi_{i1}}\hat{A}_{i\theta}&-\bar{P_1}&0&0&0\\ \\
+%\vdots &0&\ddots&0&0\\ \\
+%\sqrt{\pi_{iN}}\hat{A}_{i\theta}&0&0& -\bar{P}_{N}&0\\ \\
+%\hat{A}^{z}_{i\phi}&0&0&0&-I_{n_w}
+%\end{bmatrix}<0
+%\end{equation}
 
 Where 
 \begin{equation}\notag
@@ -935,9 +944,9 @@ H_{i\theta}&=\begin{bmatrix}
 \end{bmatrix}
 \end{aligned}
 \end{equation}
-then system \eqref{close_system_equation_2}  with $x_0=0$ and $w\in\mathcal{W}_{\gamma}$ is stochastically stable and the $l_2$-gain of the closed system is strictly less or equal to $\gamma$.
+then system \eqref{close_system_equation_2}  with $x_0=0$ and $w\in\mathcal{W}_{\gamma}$ is stochastically stable and the $l_2$-gain of the closed-loop system is strictly less or equal to $\gamma$.
 \\
-Proof: We first select \eqref{lypfunction} as the Lyapunov function and $P_{r(k)}=\bar{P}^{-1}_{r(k)}$. Similar to the proof of theorem 1, we can obtain that
+Proof: We first select \eqref{lypfunction} as the Lyapunov function and $P_{r(k)}=\bar{P}^{-1}_{r(k)}$. Similar to the proof of theorem 1, it's easy to find that
 \begin{equation}
 	\begin{split}
 		\mathbb{E}\{\varDelta V(k)\}=\hat{x}^{'}_{k} \Big( \sum_{\phi=1}^{M}u_{i\phi}\hat{A}^{'}_{i\phi}X_{i}\hat{A}_{i\phi}\Big) \hat{x}_{k} -V(k,x_k,i)
@@ -971,7 +980,7 @@ L_{i\phi} = \begin{bmatrix}
 \end{bmatrix}
 \end{aligned}
 \end{equation}
-Applying Schur complement, we can get \\
+Noting that $L_{i\phi}<0$ for $\phi\in \mathcal{M}$, apply Schur complement to the inequality above, we can get \\
 \begin{equation} \label{cons2}
 \sum_{\phi=1}^{M}u_{i\phi} \begin{bmatrix}
 I&0\\
@@ -1008,7 +1017,7 @@ Furthermore, noticing the condition given in \eqref{scieq}, we further have $\ma
 \end{equation}
 Summing up from $k=0$ to $k=T$, and recalling that $x_{0} =0$, that $\mathbb{E}\{k+1,x_{k+1},r(k+1)\}\geq0 $, we get that $\mathbb{E}\{ \|z_{k}\|^{2} \} $ Noting the zero initial condition , we can conclude that $\frac{\|z\|_{2}}{\|w\|_2}<\gamma $ is satisfied, which completes the proof. \\
 Remark: It's easy to find that, if \eqref{condition_2_1} and \eqref{condition_2_2} holds, the asynchronous controller can be designed based on Theorem 2. The optimal $l_2$-gain performance $\gamma^{*}$ can be obtained via dealing with the optimal problem as follows: \\ 
-\begin{equation}
+\begin{equation} \label{min_gamma_index}
 	\mathrm{min}\quad \sigma \quad \mathrm{subject \ to} \ \eqref{condition_2_1} \ \mathrm{and} \ \eqref{condition_2_2} \ \mathrm{with} \ \sigma=\gamma^{2} 
 \end{equation}
 
@@ -1066,7 +1075,7 @@ In this section, we provide an example to verify the validity of proposed method
 		\end{bmatrix}
 	\end{aligned}  
 \end{equation}
-By solving the $l_2$-gain optimization problem, it is easy to find that $\gamma^{*}=2.41$ and following asynchronous controller gain matrices can be obtained.
+By solving the $l_2$-gain minimization problem in \eqref{min_gamma_index}, it is easy to find that $\gamma^{*}=2.41$ and following asynchronous controller gain matrices can be obtained.
 \begin{equation}\notag
 	\begin{aligned}
 		K_{1}=\begin{bmatrix}
@@ -1101,7 +1110,7 @@ Fig.1 gives a possible time sequences of the mode of system and asynchronous con
 
 
 \section{Conclusions}
-The stochastic stability analysis and $l_{2}$-gain optimization problems for a class of discrete-time nonlinear Markov systems with asynchronous controller have been discussed in this paper. 
+The stochastic stabilization and $l_{2}$-gain  minimization problems for a class of discrete-time nonlinear Markov systems with asynchronous controller have been discussed in this paper. 
 
 % conference papers do not normally have an appendix
 
@@ -1113,19 +1122,36 @@ The authors would like to thank...
 
 
 \begin{thebibliography}{1}
-
-	\bibitem{IEEEhowto:kopka}
-	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-	\bibitem{IEEEhowto:kopka}
-	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-	\bibitem{IEEEhowto:kopka}
-	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-	\bibitem{IEEEhowto:kopka}
-	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+	\bibitem{zyf}
+	Zhu Y, Zhang L, Zheng W X. Distributed ${\mathcal{H_{\infty}}}$ Filtering for a Class of Discrete-Time Markov Jump Lur’e Systems With Redundant Channels[J]. IEEE Transactions on Industrial Electronics, 2016, 63(3):1876-1885.
+	
+	\bibitem{mode_independent_T}
+	Todorov M G, Fragoso M D. New methods for mode-independent robust control of Markov jump linear systems[J]. Systems \& Control Letters, 2016, 90:38-44.
+	\bibitem{mode_independent_wuhuaining}
+	Wu, H. N., \& Cai, K. Y. (2006). Mode-independent robust stabilization for uncertain markovian jump nonlinear systems via fuzzy control. IEEE Transactions on Systems Man \& Cybernetics Part B Cybernetics A Publication of the IEEE Systems Man \& Cybernetics Society, 36(3), 509-19.
+	
+	\bibitem{passive_wu}
+	Wu, Zheng Guang, et al. "Passivity-Based Asynchronous Control for Markov Jump Systems." IEEE Transactions on Automatic Control 62.4(2017):2020-2025.
+	
+	\bibitem{l2_filter_wu}
+	Z.-G. Wu, P. Shi, H. Su, and J. Chu, “Asynchronous $l_{2}$-$l_{\infty}$ filtering for discrete-time stochastic Markov jump systems with randomly occurred sensor nonlinearities,” Automatica, vol. 50, no. 1, pp. 180–186, 2014. 
+	
+	\bibitem{dispassive-control-wu}
+	Z.-G. Wu, S. Dong, H. Su, and C. Li, “Asynchronous dissipative control for fuzzy Markov jump systems,” IEEE Trans. Cybern., to be published, doi: 10.1109/TCYB.2017.2739754.
+	
+	\bibitem{filter_shenying}
+	Shen Y, Wu Z G, Shi P, et al. Asynchronous Filtering for Markov Jump Neural Networks With Quantized Outputs[J]. IEEE Transactions on Systems Man \& Cybernetics Systems, 2018, PP(99):1-11.
+	
+	\bibitem{continus_filter_dongshanling}
+	Dong, Shanling, et al. "Hidden-Markov-Model-Based Asynchronous Filter Design of Nonlinear Markov Jump Systems in Continuous-Time Domain." IEEE Transact  ions on Cybernetics PP.99:1-11.
+	
+	\bibitem{filter_zhangmeng}
+	Zhang M, Shi P, Liu Z, et al. Fuzzy Model-based Asynchronous H $\infty$ Filter Design of Discrete-Time Markov Jump Systems[J]. Journal of the Franklin Institute, 2017, 354(18).
+	
+	\bibitem{unknown_asynchronous_control}
+	Song, Jun, et al. "Finite-time $l_2$-$l_\infty$ control of Markovian jump linear systems with partly accessible hidden information via asynchronous output feedback." Control Conference IEEE, 2018:2447-2452.
+	
+	
 \end{thebibliography}
 
 
