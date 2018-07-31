@@ -54,9 +54,9 @@ N = 2;  % number of mode i.
 M = 2;  % number of mode m.
 
 P_Matrix = [0.6 0.4; 0.2 0.8];
-M_Matrix = [ 0.4 0.6; 0.3 0.7];
+% M_Matrix = [ 0.4 0.6; 0.3 0.7];
 % M_Matrix = [0.4 0.6; 0 1];
-% M_Matrix = [1 0; 0 1];
+M_Matrix = [1 0; 0 1];
 % M_Matrix = [1 0 0; 0 1 0; 0 0 1];
 % M_Matrix = [0 0 1; 0 1 0; 0 0 1];
 % M_Matrix = [0.8 0.1 0.1; 0.2 0.3 0.5; 0 0 1];

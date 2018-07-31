@@ -60,6 +60,7 @@
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{bm}
+\usepackage{diagbox} 
 \usepackage[colorlinks,linkcolor=blue]{hyperref}
 \newtheorem{remark}{Remark}
 % Some Computer Society conferences also require the compsoc mode option,
@@ -411,13 +412,14 @@
    
 
 \section{Introduction}
-	As an important class of stochastic switching systems, Markov jump systems (MJSs) have received considerable attention because of its powerful ability in modeling systems with abrupt change in parameters or system structures, for instance,  environmental disturbances, actuators failures, and variations in subsystems interconnections. Over the past few decades, a large number of works for stability analysis and the controller/filter design have been published[1234]. For example,    
+	As an important class of stochastic switching systems, Markov jump systems (MJSs) have received considerable attention because of its powerful ability in modeling systems with abrupt change in parameters or system structures, for instance,  environmental disturbances, actuator failures, and variations in subsystems interconnections. Over the past few decades, a large number of works for stability analysis and the controller/filter design have been published[1234]. For example,    
 	
 %	但是，现如今存在的大多数成果都默认控制器的模态是已知的，且与系统模态保持一致，但是在实际应用中，这种情况可能会因为种种原因很难获得保证。也就是说，异步的情况是更合理的。 到现在，已经有少量的成果被提出来来解决这种情况，主要可以分成两种情况，我们分别称之为独立性模型，和异步控制模型。独立控制模型认为控制器的模态由一个新的Markov chin链描述，但是控制器的模态是相对于系统模态独立的，但是这种情况显然没有充分利用系统的信息，因此异步控制器模型被随之被研究。异步控制器认为，控制器的模态是有一个隐马尔科夫链控制的，且于系统模态有关。 在文献【wu】 的文章中首次系统的提出了基于隐马尔科夫模型的异步控制/滤波方法，同时该方法包含了同步的情况。...，在文献[23]中，带有不确定TP的异步线性马尔科夫稳定性问题进行了讨论。
 %	
 	In most existing works, it was  implicitly assumed that the information of system modes can be fully accessible for the controller/filter all the time, so that controller/filter modes can run synchronously with system modes. Unfortunately, in practical applications, it is rather difficult to satisfy this ideal assumption because of some unexpected factors, for instance, time delays, data dropouts and quantization in network control systems. In order to overcome this strict limitation, two research approach on control/filtering of MJSs were proposed, namely, mode-independent and asynchronous methods. In mode-independent methods\cite{mode_independent_T}\cite{mode_independent_wuhuaining}, the controller modes is independent with plant modes, which means have no use of system information and may result in some conservatism. Therefore, asynchronous methods on control/filtering problems for MJSs gain more attention in recent years. For example,  a piecewise homogeneous Markov chain was utilized to design an asynchronous $l_2$-$l_\infty$ filter for discrete-time MJSs with randomly occurred sensor nonlinearities in \cite{l2_filter_wu}. After that, in \cite{passive_wu}, a new strategy based on HMM framework was adopted in passivity-based asynchronous control problems, which covers the synchronous situation. Very recently, many works on asynchronous control/filtering problem of MJSs have been published based on this powerful model. For instance, asynchronous filter design of discrete-time Markov Jump Systems was discussed in \cite{filter_shenying}\cite{filter_zhangmeng}, the same issue was discussed in continuous-time domain in \cite{continus_filter_dongshanling}, and asynchronous $l_2$-$l_{\infty}$ control problem for discrete-time Markovian jump linear systems with partly accessible controller mode information was addressed in \cite{unknown_asynchronous_control}. 
 %	在实际控制系统中，分线性是普遍存在的，有一种被称作洛尔系统的一种特殊系统近年来得到了广泛的关注。该系统的一般形式为，其中代表线性部分，代表扇形游街部分。在文献？？？中分别提出了一种控制手段，在文献？？利用正态李雅普诺夫方程中利用这样的控制手段分析了带有未知参数的离散马尔科夫跳变系统，之后，在文献中，利用一种新型的李雅普诺夫方程对该类系统进行了重新的研究，并得到了更加不保守的条件。但是值得注意的是，目前前述论文对洛尔系统控制器的设计于分析都是同步的，也就是说，异步洛尔跳变系统尚未进行讨论，这也就激发了我们对这类进行的分析。本文的贡献如下，首先，我们设计了一个类似于文献？？？中采用的控制形式，但是是一个异步状态，输出反馈，并分析了其稳定性问题。其次，针对上述系统的l2性能进行了分析
-%	论文贡献：1. 异步控制应用到洛尔系统中去，2.控制器包含了一个线性状态反馈控制器及一个非线性的异步输出反馈控制器。  
+%	论文贡献：1. 异步控制应用到洛尔系统中去，2.控制器包含了一个线性状态反馈控制器及一个非线性的异步输出反馈控制器。 
+
 	On the other hand, nonlinearity is another common phenomenon universally exists in the practical control systems. Among many different descriptions of non-linear system, a special one called Lur'e system\cite{khnlil}, which is consisted of a linear part and a cone-bounded nonlinearity, has received a lot of attentions in recent years[some references]. Many excellent works have been published on stability analysis and controller design problems for Lur'e system. For example, the issue of absolute stabilization for Lur'e system with a sector bounded nonlinearity under control saturations was discussed in \cite{state_output_control_EB} and \cite{state_output_control_EB_continues}, respectively, in discrete-time and continues-time domain. The flexibility was increased due to a mode-dependent controller which consisted of a linear state-feedback and a cone-bound nonlinear output feedback was introduced, and was also universally adopted in many later works. In \cite{song_control}, stability and $l_2$-gain problem was discussed for a class of discrete-time nonlinear MJSs with actuator saturation and incomplete knowledge of transition probabilities by construct a stochastic quadratic candidate Lyapunov function. Almost at the same time, a new class of Lyapunov functions including the cone-bounded nonlinearity, Lur'e type Lyapunov function, was proposed to the stability analysis for discrete-time Lur'e systems in \cite{gonzaga}. Then, the stochastic Lur's type Lyapunov function was applied to solve the stochastic stability problem for a class of discrete-time Markov jump Lur'e systems in \cite{costaolv_control_1} and \cite{costaolv_control}. However, as we can know, the issue of stability and stabilization for discrete-time Lur'e systems with asynchronous controller have not been investigated yet, which motivates us for the current work. 
 	
 	In this paper, the stochastic stabilization and $l_2$-gain minimization problems was discussed for a class of discrete-time Markov Jump Lur'e system with asynchronous controller. The contribution of this paper are: (1) Design a asynchronous controller which consists of a liner state feedback and a cone-bound nonlinear output feedback(similar with \cite{gonzaga}) based on a Hidden Markov model. (2) A sufficient theorem in the from LMI was given to make sure the system is stochastic stabilize and minimize the $l_2$-gain performance. The rest of this paper is organized as follows: In Section II, we introduce the system model and give some preliminaries related to this paper.  Section III analysis the stochastic stability for a class of discrete-time Markov Jump Lur'e system.  Section IV deals with the $l_2$-gain minimization problem and design the asynchronous controller. A numerical example was provided to illustrate the effectiveness of the given theorems in Section V. Finally, we summarize the works of this paper in Section VI. 
@@ -607,7 +609,7 @@ where $K_{\sigma(k)}\in \mathbb{N}^{n_u\times n_x}$ is a time-varying controller
 \end{equation}
 Where for all $i\in\mathcal{N}, \phi\in\mathcal{M}, \mu_{i\phi}\in [0,1]$, and $\sum_{\phi=1}^{M}\mu_{i\phi}=1$ for each $i\in\mathcal{N}$.
 \begin{remark}
-	Similar with \cite{passive_wu}, a HHM was introduced to describe the asynchronous phenomenon appears between the controller and the plant. Its easy to find that, the controller designed here consists a linear state feedback and a nonlinear output feedback which satisfy cone-bounded condition introduced in assumption 1. Different form the synchronous controller introduced in \cite{song_control} and \cite{costaolv_control_1}, the controller adopted in this paper is a asynchronous controller, which means the controller mode and the plant mode may different at the same time. Obviously, when the probability matrix $\varPhi$ is unit matrix, the controller mode run synchronously with the plant, asynchronous controller becomes a synchronous controller, which means the asynchronous controller considered in this paper takes the synchronization as a special case. 
+	Similar with \cite{passive_wu}, a HHM was introduced to describe the asynchronous phenomenon appears between the controller and the plant. Its easy to find that, the controller designed here consists a linear state feedback and a nonlinear output feedback which satisfy cone-bounded condition based on assumption 1. Different form the synchronous controller introduced in \cite{song_control} and \cite{costaolv_control_1}, the controller adopted in this paper is a asynchronous controller, which means the controller mode and the plant mode may different at the same time. Obviously, when the probability matrix $\varPhi$ is unit matrix, the controller mode will run synchronously with the plant, asynchronous controller becomes a synchronous controller, which means the asynchronous controller considered in this paper takes the synchronization as a special case. 
 \end{remark} 
 %\textbf{Remark 1}: In practice, the information of the system modes can not be fully accessed to controller or not fully accurate, that is, the actual modes of system are hidden to the controller, which leads to the controller don't synchronize with system modes. Thus, we introduce $\sigma(k)$ to present the relationship between system modes and controller modes, and the set $(r(k),\sigma(k),\varPi,\varPhi)$ constructs a hidden Markov model. \\
 %\\
@@ -731,43 +733,55 @@ Theorem1. System \eqref{close_system_equation_2} with $x_0=0$ and $w_{k}=0$ is s
 where \\
 \begin{equation}\notag
 	\begin{aligned}
+	\mathscr{N}_{i\phi}&=\begin{bmatrix}
+	\sqrt{u_{i1}}L_{i1}&\sqrt{u_{i2}}L_{i2}&\cdots&\sqrt{u_{iM}}L_{iM}
+	\end{bmatrix}\\
+	\mathscr{P}_{i\phi}&=\mathrm{diag} \{-\bar{P}_{1},-\bar{P}_{2},\dots,-\bar{P}_{N}  \}\\
+	\mathscr{L}_{i\phi}&=\mathrm{diag} \{-L_{i1},-L_{i2},\dots,-L_{iM}  \}\\
 		\mathscr{H}_{i\phi}&=\begin{bmatrix}
 			\sqrt{\pi_{i1}}\hat{A}_{i\phi}\\
 			\sqrt{\pi_{i2}}\hat{A}_{i\phi}\\
 			\vdots\\
 			\sqrt{\pi_{i_N}}\hat{A}_{i\phi}
-		\end{bmatrix}^{'},
-		\mathscr{S}_{i\phi} = \begin{bmatrix}
-			-\bar{P}_{i}&0\\
-			*&H_{i\phi}
+		\end{bmatrix}^{'}, \quad
+		\hat{A}_{i\theta}=\begin{bmatrix}
+		\bar{A}_{i\theta}&\bar{F}_{i\theta}
+		\end{bmatrix}  \\
+		L_{i\phi}&=\begin{bmatrix}
+		\bar{P}_{i}&0\\
+		*&R_{i1}
+		\end{bmatrix}, \quad
+		L_{i\phi}=\begin{bmatrix}
+		I_{n_x}&0\\
+		*&R_{i1}
 		\end{bmatrix}\\
 		H_{i\theta}&=\begin{bmatrix}
 			-I_{n_x}&C^{'}_{i}\varOmega_{i}T_{i} \\
 			*&-2T_{i}
-		\end{bmatrix},
-		\hat{A}_{i\theta}=\begin{bmatrix}
-			\bar{A}_{i\theta}&\bar{F}_{i\theta}
-		\end{bmatrix}  \\
-		\mathscr{P}_{i\phi}&=\mathrm{diag} \{-\bar{P}_{1},-\bar{P}_{2},\dots,-\bar{P}_{N}  \}\\
-		\mathscr{N}_{i\phi}&=\begin{bmatrix}
-				\sqrt{u_{i1}}\begin{bmatrix}
-				\bar{P}_{i}&0\\
-				*&R_{i1}
-			\end{bmatrix}&
-			\dots&	
-			\sqrt{u_{iM}}\begin{bmatrix}
-				\bar{P}_{i}&0\\
-				*&R_{iM}
-			\end{bmatrix}&
-		\end{bmatrix} \\
-		\mathscr{L}_{i\phi}&=\mathrm{diag}\Bigg\{\begin{bmatrix}
-			-I_{n_x}&0\\
-			*&-R_{i1}
-		\end{bmatrix},\dots,
-		\begin{bmatrix}
-			-I_{n_x}&0\\
-			*&-R_{iM}
-		\end{bmatrix}  \Bigg\} 
+		\end{bmatrix}\\
+		\mathscr{S}_{i\phi}&= \begin{bmatrix}
+			-\bar{P}_{i}&0\\
+			*&H_{i\phi}
+		\end{bmatrix}\\
+%		\mathscr{N}_{i\phi}&=\begin{bmatrix}
+%				\sqrt{u_{i1}}\begin{bmatrix}
+%				\bar{P}_{i}&0\\
+%				*&R_{i1}
+%			\end{bmatrix}&
+%			\dots&	
+%			\sqrt{u_{iM}}\begin{bmatrix}
+%				\bar{P}_{i}&0\\
+%				*&R_{iM}
+%			\end{bmatrix}&
+%		\end{bmatrix} \\
+%		\mathscr{L}_{i\phi}&=\mathrm{diag}\Bigg\{\begin{bmatrix}
+%			-I_{n_x}&0\\
+%			*&-R_{i1}
+%		\end{bmatrix},\dots,
+%		\begin{bmatrix}
+%			-I_{n_x}&0\\
+%			*&-R_{iM}
+%		\end{bmatrix}  \Bigg\} 
 	\end{aligned}
 \end{equation}
 
@@ -795,7 +809,7 @@ Where $\hat{x}_{k}=(x^{'}_k,\varphi^{'}_{i}(C_{i}x_{k}))^{'}$. Which implies
 	\end{split}
 \end{equation}
 Denoting $h_{i\phi} = \mathrm{diag}\{P_{i}, I_{n_x+n_y},\{\mathrm{diag}(I_{n_x},R^{-1}_{i\phi})^{M}_{\phi=1} \} \}$ and using $h_{i\phi}$ to pre- and post-multiplying the inequality given in \eqref{condition_1_2}, respectively, then we can get \\
-\begin{equation}\nonumber
+\begin{equation}\label{st}
 \begin{bmatrix} 
 	\hat{\mathscr{S}}_{i\phi}&
 \sqrt{u_{i1}}I&
@@ -858,28 +872,39 @@ Consider the condition given in \eqref{leq18}, it is easy to obtain that
 		\mathbb{E}\{\varDelta V(k)\}-2SC(i,x_k,T_i)<0
 \end{equation}
 Furthermore, noticing the condition given in \eqref{scieq}, we further have $\mathbb{E}\{\varDelta V(k)\} <0$, which means the closed-loop system \eqref{close_system_equation_2} is stochastically stable.
-\\
 \begin{remark}
-	值得注意的是，从19-20我们构造了一个更大的状态向量，这样做的目的是为了分离矩阵中的未知非线性部分以使得不等式可解。
-	Noting that, 
+	于吴老师论文相似的是，我们这里引入了矩阵来分离
+	As introduced in previous sections, the closed-loop system considered in this paper contains two Markov chain, $r(k)$ was used to describe system mode, and $\sigma(k)$ was used to describe the controller mode. In order to separate system Markov chain and controller Markov chain, matrices $R_{i\phi}$ were introduced to finish this task, which was inspired by the processing methods adopted in \cite{l2_filter_wu}. 
 \end{remark}
 \begin{remark}
-	于吴老师论文相似的是，我们这里引入了R矩阵来分离
+	Noting that, inequality \eqref{iq1} and \eqref{iq11} are equivalent to
+	\begin{equation}\label{st1}
+		\hat{x}^{'}_{k}\{\sum_{\phi=1}^{M}u_{i\phi}R_{i\phi}+\varXi_{i} \}\hat{x}_{k}<0
+	\end{equation}
+	and 
+	\begin{equation*}
+	\varXi_{i}=\begin{bmatrix}
+	-P_{i}&C^{'}_{i}\varDelta_{i}T_{i}\\
+	*&-2T_{i}
+	\end{bmatrix}
+	\end{equation*} 
+	The reason we carry out this equivalent transformation is, in this way, we can handle the parameters in the matrix more flexibly. It is clear that, $P_i$ in matrix \eqref{st} is separated with matrices $H_{i\phi}$ and $R_{i\phi}$, and we can transform it into $\bar{P}_{i}$ directly, which is not so easy for $\sum_{\phi=1}^{M}u_{i\phi}R_{i\phi}+\varXi_{i}$ in \eqref{st1}.
 \end{remark}
 
 \subsection{$l_2$-gain minimization and controller design}
 The $l_2$-gain minimization problem for closed-loop system \eqref{close_system_equation_2} will be discussed in this subsection. The asynchronous controller \eqref{asycontroller} can be designed by solving the $l_2$-gain optimization problem, and the following theorem provides a sufficient condition to make sure the closed-loop system is stochastically stable and $l_2$-gain is less or equal to $\gamma$.\\
 Theorem 2: For each mode $i\in\mathcal{N}$ and $\phi\in\mathcal{M}$, if there exist positive-definite matrices $\bar{P}_{i}\in\mathbb{R}^{n_x\times n_x}$ and $R_{i\phi}\in \mathbb{R}^{(n_x+n_y+n_w)\times(n_x+n_y+n_w)}$, matrices $K_{\phi}\in\mathbb{N}^{n_u\times n_x}, \varGamma_{\phi}\in \mathbb{R}^{n_u\times n_y}$, positive semi-definite matrix $T_{i}\in\mathbb{R}^{n_y\times n_y}$ and a positive scalar $\gamma$, such that the following LMIs are verified
+
+\begin{equation} \label{condition_2_2}
+	\begin{bmatrix}
+		\mathscr{S}_{i\phi}&\mathscr{N}_{i\phi}\\
+		*&\mathscr{L}_{i\phi}
+	\end{bmatrix}<0
+\end{equation}
 \begin{equation} \label{condition_2_1}
 	\begin{bmatrix}
 	-R_{i\theta}&\mathscr{H}_{i\phi}\\
 	*&\mathscr{P}_{i}
-	\end{bmatrix}<0
-\end{equation}
-\begin{equation} \label{condition_2_2}
-	\begin{bmatrix}
-	\mathscr{S}_{i\phi}&\mathscr{N}_{i\phi}\\
-	*&\mathscr{L}_{i\phi}
 	\end{bmatrix}<0
 \end{equation}
 
@@ -896,6 +921,19 @@ Theorem 2: For each mode $i\in\mathcal{N}$ and $\phi\in\mathcal{M}$, if there ex
 Where 
 \begin{equation}\notag
 \begin{aligned}
+	\mathscr{N}_{i\phi}&=\begin{bmatrix}
+		\sqrt{u_{i1}}L_{i1}&\sqrt{u_{i2}}L_{i2}&\cdots&\sqrt{u_{iM}}L_{iM}
+	\end{bmatrix}\\
+\mathscr{L}_{i\phi}&=\mathrm{diag} \{-L_{i1},-L_{i2},\dots,-L_{iM}  \}\\
+\mathscr{P}_{i\phi}&=\mathrm{diag}\{-\bar{P}_{1},-\bar{P}_{2},\dots,-\bar{P}_{N},-I_{n_w}  \}\\
+	L_{i\phi}&=\begin{bmatrix}
+	\bar{P}_{i}&0\\
+	*&R_{i1}
+	\end{bmatrix}, \quad
+	L_{i\phi}=\begin{bmatrix}
+	I_{n_x}&0\\
+	*&R_{i1}
+	\end{bmatrix}\\
 	\mathscr{H}_{i\phi}&=\begin{bmatrix}
 		\sqrt{\pi_{i1}}\hat{A}_{i\phi}\\
 		\sqrt{\pi_{i2}}\hat{A}_{i\phi}\\
@@ -907,32 +945,12 @@ Where
 		-\bar{P}_{i}&0\\
 		*&H_{i\phi}
 	\end{bmatrix}\\
-\mathscr{P}_{i\phi}&=\mathrm{diag}\{-\bar{P}_{1},-\bar{P}_{2},\dots,-\bar{P}_{N},-I_{n_w}  \}\\
 \hat{A}_{i\theta}&=\begin{bmatrix}
 \bar{A}_{i\theta}&\bar{F}_{i\theta}&E^{x}_{i}
 \end{bmatrix},\quad
 \hat{A}^{z}_{i\theta}=\begin{bmatrix}
 \bar{C}^{z}_{i\theta}&\bar{G}^{z}_{i\theta}&E^{z}_{i}
 \end{bmatrix}  \\
-\mathscr{N}_{i\phi}&=\begin{bmatrix}
-\sqrt{u_{i1}}\begin{bmatrix}
-\bar{P}_{i}&0\\
-*&R_{i1}
-\end{bmatrix}&
-\dots&	
-\sqrt{u_{iM}}\begin{bmatrix}
-\bar{P}_{i}&0\\
-*&R_{iM}
-\end{bmatrix}&
-\end{bmatrix} \\
-\mathscr{L}_{i\phi}&=\mathrm{diag}\Bigg\{\begin{bmatrix}
--I_{n_x}&0\\
-*&-R_{i1}
-\end{bmatrix},\dots,
-\begin{bmatrix}
--I_{n_x}&0\\
-*&-R_{iM}
-\end{bmatrix}  \Bigg\} \\
 H_{i\theta}&=\begin{bmatrix}
 -I_{n_x}&C^{'}_{i}\varOmega_{i}T_{i}&0\\
 *&-2T_{i}&0\\
@@ -1028,7 +1046,6 @@ Summing up from $k=0$ to $k=T$, and recalling that $x_{0} =0$, that $\mathbb{E}\
 
 
 \section{Numerical Example}
-
 In this section, we provide an example to verify the validity of the proposed methods. Consider the Markov jump Lur'e system \eqref{syseq} with following parameters: $\mathcal{N}=\{1,2\}$, $\mathcal{M}=\{1,2\}$ 
 \begin{equation} \notag
 	\begin{aligned}
@@ -1074,14 +1091,50 @@ In this section, we provide an example to verify the validity of the proposed me
 		\varPi&=\begin{bmatrix}
 			0.6&0.4\\
 			0.2&0.8
-		\end{bmatrix} \quad
-		\varPhi=\begin{bmatrix}
-			0.4&0.6\\
-			0.3&0.7
 		\end{bmatrix}
 	\end{aligned}  
 \end{equation}
-By solving the $l_2$-gain minimization problem in \eqref{min_gamma_index}, it is easy to find that $\gamma^{*}=2.41$ and following asynchronous controller gain matrices can be obtained.
+\begin{table}[!htbp]
+	\centering
+	\caption{Different-kind probability matrix $\varPhi$}  
+	\begin{tabular}{c|c|c|c}
+		\hline 
+		CASE& CASE I & CASE II & CASE III \\ \hline
+		Types&synchronous &partially-synchronous &asynchronous\\ \hline
+		$\varPhi$
+		&
+		$
+		\begin{bmatrix}
+		1&0\\
+		0&1
+		\end{bmatrix}$ 
+		&
+		$
+		\begin{bmatrix}
+		0.4&0.6\\
+		0&1
+		\end{bmatrix}$  
+		&
+		$
+		\begin{bmatrix}
+		0.4&0.6\\
+		0.3&0.7
+		\end{bmatrix}$   
+		\\ \hline
+		
+	\end{tabular}
+\end{table}
+\begin{table}[!htbp]
+	\centering
+	\caption{Optimal $l_2$-gain performance $\gamma^{*}$ under different $\varPhi$ } 
+	\begin{tabular}{c|c|c|c}
+		\hline 
+		CASE& CASE I & CASE II & CASE III \\ \hline
+		$\gamma^{*}$& 1.7146&1.7304& 1.7514\\ \hline
+	\end{tabular}
+\end{table} 
+Moreover, three different cases of probability matrix $\varPhi$ are given in Table　I, represent synchronous,paritcally-synchronous and asynchronous respectively. 
+By solving the $l_2$-gain minimization problem in \eqref{min_gamma_index}, it is easy to find that $\gamma^{*}=1.7514$ and following asynchronous controller gain matrices can be obtained.
 \begin{equation}\notag
 	\begin{aligned}
 		K_{1}=\begin{bmatrix}
@@ -1097,7 +1150,7 @@ By solving the $l_2$-gain minimization problem in \eqref{min_gamma_index}, it is
 
 \begin{figure}[!htb]
 	\centering\includegraphics[scale=0.25]{./simulink/mode_p.eps}\\ 
-	\centering\includegraphics[scale=0.25]{./simulink/mode_k.eps}\\ 
+ 	\centering\includegraphics[scale=0.25]{./simulink/mode_k.eps}\\ 
 	\caption{Modes of system and controller}
 	\label{fig.1}
 \end{figure}
@@ -1108,7 +1161,7 @@ By solving the $l_2$-gain minimization problem in \eqref{min_gamma_index}, it is
 	\label{fig.2}
 \end{figure}
 \begin{figure}[!htb]
-	\centering\includegraphics[scale=0.4]{./simulink/u_k3.eps}\\
+	\centering\includegraphics[scale=0.59]{./simulink/u_k3.eps}\\
 	\caption{System input}
 	\label{fig.3}
 \end{figure}
